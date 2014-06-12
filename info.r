@@ -1,0 +1,5 @@
+name = "Joel Graycar"
+SID = "23407126"
+email = "jgraycar@berkeley.edu"
+github_name = "greytoyota"
+status = "enrolled"
