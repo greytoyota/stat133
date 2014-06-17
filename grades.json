@@ -1,0 +1,17 @@
+{
+    "email": "jgraycar@berkeley.edu", 
+    "github_name": "greytoyota", 
+    "grades": {
+        "lab2": {
+            "earned": 10, 
+            "hash": "1d9794ae4d1bd7d243bc21ff152149c1e0422bd6", 
+            "note": "", 
+            "penalty": 0, 
+            "possible": 10
+        }
+    }, 
+    "login": "greytoyota", 
+    "name": "Joel Graycar", 
+    "status": "enrolled", 
+    "url": "git@github.com:greytoyota/stat133.git"
+}
