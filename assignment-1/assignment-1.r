@@ -40,8 +40,7 @@ load('assignment-1-3.Rda')
 toCelcius <- function(temp.far) {
     # This function should take a vector of Farenheit temperature values
     # <temp.far> and return the values of each entry in Celcius
-
-    #your code here
+    return((5 * (temp.far - 32)) / 9)
 
 }
 
@@ -70,8 +69,12 @@ calculateS <- function(data, selected.year, selected.day) {
     if ((selected.year < 2005 | selected.year > 2011) | (selected.day < 1 |
                                                          selected.day > 31))
         stop('invalid date')
-    
-    #your code here
+
+    temp.vec = data[data["year"] == selected.year & data["day"] == selected.day, TRUE]
+    max.temp = as.numeric(temp.vec["max"])
+    min.temp = as.numeric(temp.vec["min"])
+    mean.temp = as.numeric(temp.vec["mean"])
+    return((max.temp - min.temp) / mean.temp)
     
 }
 
@@ -96,10 +99,10 @@ tryCatch(
 #spread and the day on which it occured.  Store these as the variables:
 #<subset.2010>, <temp.differences>, <max.difference>, and <max.difference.day>.
 
-#subset.2010 <- #your code here
-#temp.differences <- #your code here
-#max.differences <- #your code here
-#max.differences.day <- #your code here
+subset.2010 <- temperature.data[temperature.data["year"] == 2010, TRUE]
+temp.differences <- subset.2010[TRUE, "max"] - subset.2010[TRUE, "min"]
+max.differences <- max(temp.differences)
+max.differences.day <- subset.2010[temp.differences == max.differences, "day"]
 
 
 # --------------------------------------------------------------
@@ -109,10 +112,16 @@ tryCatch(
 # high temperatures greater than the 65th percentile (2)days with daily high
 # temperatures below the 65th percentile. Use strict inequalities when
 # determining these subsets
-    
-#your code here
-#mean.low.above <- #your code here
-#mean.low.below <- #your code here
+# subset ENTIRE temperature.data data frame, not subset from 2a
+
+maxes = temperature.data[TRUE, "max"]
+quant.val = as.numeric(quantile(maxes, probs=.65))
+days.above = temperature.data[temperature.data["max"] > quant.val, TRUE]
+days.below = temperature.data[temperature.data["max"] < quant.val, TRUE]
+lows.above = days.above[TRUE, "min"]
+lows.below = days.below[TRUE, "min"]
+mean.low.above <- mean(lows.above)
+mean.low.below <- mean(lows.below)
 
 # --------------------------------------------------------------
 # Problem 3
@@ -126,12 +135,12 @@ tryCatch(
 # <observed.types> respectively.
 
 #your code here
-#observed.diets <- #your code here
+#observed.diets <- 
 #observed.types <- #your code here
 
 # Use your newly created vectors to calculate the total number of observed
 # animals that are both carnivores and mammals.  Store this variable as
-# <carnivore.mammals>
+# <n.carnivore.mammals>
 
 #n.carnivore.mammals <- #your code here
 
