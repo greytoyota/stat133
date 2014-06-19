@@ -135,13 +135,22 @@ mean.low.below <- mean(lows.below)
 # <observed.types> respectively.
 
 #your code here
-#observed.diets <- 
-#observed.types <- #your code here
+observed.diets <- numeric(length=500)
+for (i in (1:length(observed.animals))) {
+    observed.diets[i] = as.character(animal.key[animal.key["animal"] ==
+                                     as.character(observed.animals[i]), "diet"])
+}
+observed.types <- numeric(length=500)
+for (i in (1:length(observed.animals))) {
+    observed.types[i] = as.character(animal.key[animal.key["animal"] ==
+                                     as.character(observed.animals[i]), "type"])
+}
 
 # Use your newly created vectors to calculate the total number of observed
 # animals that are both carnivores and mammals.  Store this variable as
 # <n.carnivore.mammals>
 
-#n.carnivore.mammals <- #your code here
+n.carnivore.mammals <- sum(observed.diets ==
+                               "carnivore" & observed.types == "mammal")
 
     
