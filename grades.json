@@ -2,6 +2,13 @@
     "email": "jgraycar@berkeley.edu", 
     "github_name": "greytoyota", 
     "grades": {
+        "assignment-1": {
+            "earned": 30, 
+            "hash": "91202f2bcd1f3452907c009855552ef70e78d12c", 
+            "note": "", 
+            "penalty": 0, 
+            "possible": 30
+        }, 
         "lab2": {
             "earned": 10, 
             "hash": "1d9794ae4d1bd7d243bc21ff152149c1e0422bd6", 
