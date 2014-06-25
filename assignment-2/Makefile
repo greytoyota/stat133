@@ -1,8 +1,8 @@
 SHELL = bash
 
-EX = $(wildcard ex*.r)
+FILES = $(wildcard *.r)
 
-test: $(EX)
-	$(foreach file, $(EX), Rscript $(file);)
+test: $(FILES)
+	$(foreach file, $(FILES), Rscript $(file);)
 
 default: test
