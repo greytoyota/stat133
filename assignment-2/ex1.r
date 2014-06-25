@@ -16,11 +16,20 @@
 # the variable <file.name>. Any observations that have more NA variables than
 # <max.na> should be removed from this data frame.
 
+# returns FALSE if there are more NA's than max.NA, otherwise TRUE
+check.amountNA <- function(vec, max.NA) {
+    numNA = sum(is.na(vec))
+    if (numNA > max.NA) {
+        return(FALSE)
+    }
+    return(TRUE)
+}
 
 readRemove <- function(file.name, max.na=0, sep=',', header=F) {
-
-    # your code here
-    
+    file.data = read.table(file.name, header=header, sep=sep)
+    notTooManyNA = apply(file.data, 1, check.amountNA, max.na)
+    file.data = file.data[notTooManyNA, ]
+    return(file.data)
 }
 
 load('ex1_tests.Rda')

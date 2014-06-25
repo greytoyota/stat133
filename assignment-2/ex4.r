@@ -31,9 +31,9 @@
 # the given team.
 
 avgGoalDiff <- function(data, team.name) {
-
-    # your code here
- 
+    team.data = data[data$team == team.name, ]
+    avg.diff = (team.data$gs - team.data$ga) / team.data$gp
+    return(avg.diff)
 }
 
 # Implement the function "cardFoulRatio" which gives the ratio of cards (red or
@@ -50,9 +50,10 @@ avgGoalDiff <- function(data, team.name) {
 # <cf.ratio> the ratio of total card to fouls by the given team
 
 cardFoulRatio <- function(data, team.name) {
-
-    # your code here
- 
+    team.data = data[data$team == team.name, ]
+    num.cards = team.data$yc + team.data$rc
+    cf.ratio = num.cards / team.data$fouls
+    return(cf.ratio)
 }
 
 # Implement the function "rankAGD" which ranks teams (from highest to lowest)
@@ -68,22 +69,22 @@ cardFoulRatio <- function(data, team.name) {
 # terms of their average goal differential
 
 rankAGD <- function(data) {
-
-    # your code here
-
+    ranking = order(sapply(data$team, avgGoalDiff, data=data), decreasing=TRUE)
+    ranked.teams = data$team[ranking]
+    return(ranked.teams)
 }
 
 # Load the data here. If you want to use the supplied unit tests, you must keep
-# the name <wc.data>. Use your "cardFouldRation" function with sapply statement
-# to find the ratio of cards to fould for each team. Store this variable as
+# the name <wc.data>. Use your "cardFoulRatio" function with sapply statement
+# to find the ratio of cards to fouls for each team. Store this variable as
 # <cfr.teams>. Subset the <wc.data> dataset to include only teams with card foul
 # ratios less than 0.12. Store this varialbe as <low.cfr.teams>. Run your
 # "rankAGD" function on this subset and store the variable as <low.cfr.rank>.
 
-# wc.data <- # your code here
-#cfr.teams <- # your code here
-#low.cfr.teams <- # your code here
-#low.cfr.rank <- # your code here
+wc.data <- read.table('world_cup.data', header=TRUE)
+cfr.teams <- sapply(wc.data$team, cardFoulRatio, data=wc.data)
+low.cfr.teams <- wc.data[cfr.teams < .12, ]
+low.cfr.rank <- rankAGD(low.cfr.teams)
 
 
 library(RUnit)
