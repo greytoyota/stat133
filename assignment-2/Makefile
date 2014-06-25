@@ -2,7 +2,7 @@ SHELL = bash
 
 EX = $(wildcard ex*.r)
 
-default: $(EX)
+test: $(EX)
 	$(foreach file, $(EX), Rscript $(file);)
 
-test: default
+default: test
