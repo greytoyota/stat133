@@ -3,9 +3,10 @@ median.norm = function(x) {
     #    where columns are the samples and rows are observations
 
     medians = apply(x, 2, median)
+    columns.indices = 1:ncol(x)
     reference = mean(medians)
     d = reference - medians
-    norm = sapply(1:14,  function(i) x[,i]+d[i])
+    norm = sapply(columns.indices,  function(i) x[,i]+d[i])
     dimnames(norm) = dimnames(x)
     return(norm)
 }
@@ -21,6 +22,13 @@ percentile.norm = function(x, prob=0.75) {
     # the third quartile. 
 
     # your code here
+    medians = apply(x, 2, quantile, probs=prob)
+    columns.indices = 1:ncol(x)
+    reference = mean(medians)
+    d = reference - medians
+    norm = sapply(columns.indices,  function(i) x[,i]+d[i])
+    dimnames(norm) = dimnames(x)
+    return(norm)
 }
 
 full.quantile.norm = function(x) {
@@ -44,6 +52,12 @@ full.quantile.norm2 = function(x) {
     # for each row.
 
     # your code here
+    x.sort = apply(x, 2, sort)    # sort within sample
+    x.rank = apply(x, 2, rank)    # rank within sample
+    reference = apply(x.sort, 1, median)
+    norm = apply(x.rank, 2, function(smpl) reference[smpl])
+    dimnames(norm) = dimnames(x)
+    return(norm)
 }
 
 
@@ -56,4 +70,10 @@ full.quantile.norm3 = function(x) {
     # quartile for each row.
 
     # your code here
+    x.sort = apply(x, 2, sort)    # sort within sample
+    x.rank = apply(x, 2, rank)    # rank within sample
+    reference = apply(x.sort, 1, quantile, probs=.75)
+    norm = apply(x.rank, 2, function(smpl) reference[smpl])
+    dimnames(norm) = dimnames(x)
+    return(norm)
 }
