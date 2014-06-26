@@ -16,7 +16,7 @@ load('prostatedata.Rda')
 # As we mentioned, patients with prostate cancer are labeled with a 2. How many of
 # these patients are there?
 
-# n.prostate <- # your code here
+n.prostate <- sum(colnames(prost.data) == 2)
 
 # Suppose we're interested in the mean of the expression levels for each gene,
 # broken down by cancer status. Please create a 2 x 1000 matrix giving the
@@ -25,9 +25,12 @@ load('prostatedata.Rda')
 # (i.e. the entry of row one column one should be the expression level of the
 # gene from the first row averaged over all patients without prostate
 # cancer). Do the same for a trimmed mean with trim parameter of 0.1.
-
-# status.means <- # your code here
-# status.trim.means <- # your code here
+  
+with.cancer = prost.data[, colnames(prost.data) == 2]
+without.cancer = prost.data[, colnames(prost.data) == 1]
+status.means <- rbind(rowMeans(without.cancer), rowMeans(with.cancer))
+status.trim.means <- rbind(apply(without.cancer, 1, mean, trim=.1),
+                           apply(with.cancer, 1, mean, trim=.1))
 
 
 # Back to the original dataset. We are interested in looking at the distribution
@@ -36,7 +39,9 @@ load('prostatedata.Rda')
 # cancer should be colored blue while patents with should be colored red. Set
 # the pch parameter to '.'.
 
-# your code here
+cols = c("red", "blue")
+status = factor(colnames(prost.data))
+boxplot(prost.data, cols=cols, col=cols[status], pch=".")
 
 # Suppose we want to remove any gene that has an unusually low expression level
 # across many patients. We'll define "unusually low" as below the quantile
@@ -62,8 +67,14 @@ load('prostatedata.Rda')
 #   more than <max.low.expr> patients
 
 quantileCutoff <- function(data, q.cutoff, max.low.expr) {
-
-    # your code here
+    min.val = quantile(data, probs=q.cutoff)
+    checker = function(row) {
+        tf = sum(sapply(row, '<', min.val)) > max.low.expr
+        return(tf)
+    }
+    tf.vec = apply(data, 1, checker)
+    low.expr.idcs = which(tf.vec)
+    return(low.expr.idcs)
 }
 
 tryCatch(checkEquals(quantile.cutoff.t, quantileCutoff(test.data, 0.25, 10)),
@@ -89,8 +100,17 @@ tryCatch(checkEquals(quantile.cutoff.t, quantileCutoff(test.data, 0.25, 10)),
 # t-test page for independent two sample t-tests with unequal sample sizes)
 
 tConvert <- function(gene) {
-
-    # your code here
+    with.cancer = gene[names(gene) == 2]
+    without.cancer = gene[names(gene) == 1]
+    mean.1 = mean(without.cancer)
+    mean.2 = mean(with.cancer)
+    n.1 = length(without.cancer)
+    n.2 = length(with.cancer)
+    s.1 = sd(without.cancer)
+    s.2 = sd(with.cancer)
+    s.12 = sqrt(((n.1 - 1) * s.1 ^ 2 + (n.2 - 1) * s.2 ^ 2) / (n.1 + n.2 - 2))
+    t.stat = (mean.1 - mean.2) / (s.12 * sqrt(1 / n.1 + 1 / n.2))
+    return(t.stat)
 }
 
 tryCatch(checkEquals(0.5889667, unname(tConvert(test.data[1, ])),
@@ -114,8 +134,10 @@ tryCatch(checkEquals(0.5889667, unname(tConvert(test.data[1, ])),
 # by 2 to get the actual p-value.
 
 pValConverter <- function(data) {
-
-    # your code here
+    t.vals = apply(data, 1, tConvert)
+    p.vals = pt(t.vals, 100)
+    p.vals = (1 - abs(p.vals)) * 2
+    return(p.vals)
 }
 
 tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
@@ -131,7 +153,9 @@ tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
 # "abline" function). This line represents the expected proportion p-values in
 # each bin.
 
-# your code here
+all.p.vals = pValConverter(prost.data)
+hist(all.p.vals, freq=FALSE, main="Prostate Data p-values", xlab="p-values")
+abline(h=1, col="red")
 
 
 # You should notice that your histogram contains a spike for the lowest
@@ -156,8 +180,9 @@ tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
 # discoveries
 
 FDR <- function(data, alpha) {
-
-    # your code here
+    p.vals = pValConverter(data)
+    num.rejected = sum(p.vals < alpha)
+    return(.5)
 }
 
 tryCatch(checkEquals(0.1923077, FDR(prost.data[1:500, ], 0.005), tolerance=1e-6),
