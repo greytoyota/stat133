@@ -135,8 +135,8 @@ tryCatch(checkEquals(0.5889667, unname(tConvert(test.data[1, ])),
 
 pValConverter <- function(data) {
     t.vals = apply(data, 1, tConvert)
-    p.vals = pt(t.vals, 100)
-    p.vals = (1 - abs(p.vals)) * 2
+    p.vals = pt(abs(t.vals), 100)
+    p.vals = (1 - p.vals) * 2
     return(p.vals)
 }
 
@@ -154,7 +154,8 @@ tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
 # each bin.
 
 all.p.vals = pValConverter(prost.data)
-hist(all.p.vals, freq=FALSE, main="Prostate Data p-values", xlab="p-values")
+hist(all.p.vals, freq=FALSE, main="Prostate Data p-values", xlab="p-values",
+     breaks=seq(0, 1, by=.05))
 abline(h=1, col="red")
 
 
@@ -182,7 +183,9 @@ abline(h=1, col="red")
 FDR <- function(data, alpha) {
     p.vals = pValConverter(data)
     num.rejected = sum(p.vals < alpha)
-    return(.5)
+    falsely.rejected = alpha * nrow(data)
+    fdr = falsely.rejected / num.rejected
+    return(fdr)
 }
 
 tryCatch(checkEquals(0.1923077, FDR(prost.data[1:500, ], 0.005), tolerance=1e-6),
