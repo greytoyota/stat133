@@ -1,7 +1,7 @@
 babies.data <- read.csv('babies.csv')
 
 # Implement the function "plotWeightGroups" that divides the data into
-# tow populations based on the mothers weight (<weight>) and plots
+# two populations based on the mothers weight (<weight>) and plots
 # densities of baby birthweight (<bwt>) for each group. Your function
 # should take the following arguments:
 #
@@ -20,7 +20,6 @@ babies.data <- read.csv('babies.csv')
 
 plotWeightGroups <- function(data, weight.boundary, ...) {
 
-    # your code here
     idcs <- data$weight <= weight.boundary
     group1 <- data[idcs, ]
     group2 <- data[!idcs, ]
@@ -49,7 +48,6 @@ plotWeightGroups <- function(data, weight.boundary, ...) {
 
 tTestWeight <- function(data, weight.boundary) {
 
-        # your code here
         idcs <- data$weight <= weight.boundary
         group1 <- data[idcs, ]
         group2 <- data[!idcs, ]
