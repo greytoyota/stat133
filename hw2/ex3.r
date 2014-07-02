@@ -59,7 +59,6 @@ tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris)), error=function(err)
 #   dimensions of your return value are correct.
 
 stdLevelDiff <- function(data) {
-
     # your code here
 }
 

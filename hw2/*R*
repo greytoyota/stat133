@@ -1,0 +1,2856 @@
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> > options(STERM='iESS', str.dendrogram.last="'", editor='emacsclient', show.error.locations=TRUE)
+> library(RUnit)
+> errMsg <- function(err) print(err)
+> load('ex2-tests.rda')
+> simple.norm.sim.t
+[[1]]
+ [1] 26.99470 25.71114 25.18541 24.71823 25.10878 23.91426 24.01452 25.01513
+ [9] 24.74795 23.53425 24.07754 25.03960 25.49382 23.17177 25.09147 25.67078
+[17] 24.91892 26.26424 24.29661 24.95942 23.43384 25.24915 24.65958 25.41719
+[25] 24.67353 24.10971 23.39184 22.67763 23.03278 25.02753 25.48360 25.14434
+[33] 23.79956 25.88523 25.88694 25.00069 24.30676 25.26084 25.50669 25.56430
+[41] 25.06116 24.89144 24.84530 25.95048 24.51230 24.07976 25.89798 24.64370
+[49] 26.03190 25.66430
+
+[[2]]
+ [1] 50.96975 51.67562 51.98824 49.01294 48.16997 51.00814 49.13090 49.48480
+ [9] 49.49978 49.72742 50.03838 50.06893 51.74017 51.30628 49.85507 51.56235
+[17] 51.24215 51.46129 49.01416 50.92561 51.21749 50.73145 51.13399 52.18792
+[25] 50.22120 49.06098 50.83844 50.52920 48.91169 49.20441 50.96832 50.18510
+[33] 49.58743 49.16707 50.95488 47.96390 50.07445 49.08547 50.15602 50.02935
+[41] 51.13688 50.00451 51.34171 48.63458 50.92604 49.50263 49.13982 49.93918
+[49] 51.41028 50.00394
+
+[[3]]
+ [1] 74.85749 74.53453 74.57537 75.74732 75.65943 75.19883 74.93895 76.49203
+ [9] 76.66074 75.77116 74.85250 75.50782 75.33651 75.60474 76.46995 74.04190
+[17] 75.09222 74.19976 76.39596 74.52577 74.54877 72.83545 75.05589 75.32133
+[25] 74.42044 74.35945 76.98710 76.32627 74.73665 73.94449 75.87395 76.50510
+[33] 74.69076 76.22141 75.01253 74.50294 73.74450 74.58115 75.22685 76.11429
+[41] 75.51192 75.03492 75.90916 74.45483 75.17074 75.09581 74.98074 74.14126
+[49] 76.55032 74.62918
+
+> ?rnorm
+> rnorm(50, 50, 1)
+ [1] 50.43246 52.00934 48.65754 49.74676 50.85615 48.49400 50.31469 50.25072
+ [9] 50.33815 50.43083 50.31585 49.10687 50.73346 49.24863 48.08117 53.06072
+[17] 49.20016 50.74136 53.05880 49.65248 49.75616 48.65970 47.83242 49.91316
+[25] 50.55979 50.82619 51.95166 50.30827 48.83127 47.31806 47.61534 50.65867
+[33] 49.17707 48.25541 48.41787 49.09576 49.46495 50.08771 49.71326 50.95133
+[41] 48.72343 52.29235 51.77724 49.64793 48.87088 50.50774 49.51342 49.72087
+[49] 49.43354 49.68566
+> means = c(25, 50, 75)
+> lapply(means, rnorm, n=50, sd=1)
+Error in FUN(c(25, 50, 75)[[1L]], ...) : object 'sim.size' not found
+> lapply(means, rnorm, n=50, sd=1)
+[[1]]
+ [1] 23.50144 24.12746 25.76728 25.04912 24.07596 24.81844 23.60341 25.33281
+ [9] 24.26752 25.42048 25.09018 25.26581 26.06281 25.27065 26.27106 26.16048
+[17] 25.34993 23.32381 27.76431 24.47413 26.07192 26.04103 25.79564 25.13076
+[25] 22.80490 26.26323 23.97121 24.26404 25.39035 25.79646 24.45083 25.06526
+[33] 25.30595 23.59378 24.84953 24.27514 25.25549 25.58035 23.30308 26.35431
+[41] 23.79100 25.89705 26.79284 24.37695 22.63620 24.30737 26.43242 22.93870
+[49] 24.83156 25.38660
+
+[[2]]
+ [1] 51.50472 50.91077 48.74882 50.58274 51.86257 49.75373 51.05220 48.61538
+ [9] 50.84385 49.64245 50.00454 51.79194 50.22405 51.03407 49.07308 51.43144
+[17] 47.19972 48.22004 50.00653 50.18702 50.06395 49.52697 49.52427 50.23555
+[25] 50.70657 50.30962 48.83381 51.48064 49.05770 49.53648 48.53063 49.76834
+[33] 50.31976 50.35056 49.98679 50.42368 49.36889 49.14880 50.48924 50.62110
+[41] 50.15964 47.82559 51.72021 48.93635 48.81123 48.83289 49.52199 49.82775
+[49] 48.16891 48.88551
+
+[[3]]
+ [1] 75.59148 76.28003 76.45064 75.12064 73.71640 74.34826 74.90351 73.61697
+ [9] 76.00942 75.06082 75.44609 75.09253 73.43306 75.32280 74.80492 76.35980
+[17] 75.42996 74.86514 76.19451 76.60092 73.42864 76.32992 76.66687 73.00728
+[25] 74.79396 74.82606 73.54482 74.84342 74.58901 74.52274 75.39338 75.90611
+[33] 75.30570 75.65069 75.95908 73.28077 75.33810 76.07223 73.72178 74.54640
+[41] 75.57213 74.10080 73.42259 72.61964 76.28487 74.75849 73.97068 76.08074
+[49] 75.95457 74.23188
+
+> 
++ + + + 
+> simpleNormSim <- function(means, sim.size=50, var=1) {
++     rv.sd = sqrt(var)
++     simulation <- lapply(means, rnorm, n=sim.size, sd=rv.sd)
++     return(simulation)
++ }
+> set.seed(47)
+> tryCatch(checkIdentical(simple.norm.sim.t, simpleNormSim(c(25, 50, 75))),
++          error=function(err) errMsg(err))
+[1] TRUE
+> sizes.t <- c(25, 50, 25, 50)
+> means.t <- c(0, 5, 5, 0)
+> vars.t <- c(1, 2, 1, 2)
+> advanced.norm.sim.t
+[[1]]
+ [1]  1.99469634  0.71114251  0.18540528 -0.28176501  0.10877555 -1.08573747
+ [7] -0.98548216  0.01513086 -0.25204590 -1.46575030 -0.92245624  0.03960243
+[13]  0.49382018 -1.82822917  0.09147291  0.67077922 -0.08107805  1.26424109
+[19] -0.70338819 -0.04057817 -1.56616208  0.24914817 -0.34041599  0.41719084
+[25] -0.32646679
+
+[[2]]
+ [1] 3.740934 2.725718 1.715670 2.217932 5.038929 5.683919 5.204124 3.302321
+ [9] 6.251905 6.254316 5.000971 4.019614 5.368878 5.716564 5.798043 5.086497
+[17] 4.846466 4.781228 6.344188 4.310293 3.698581 6.269929 4.496123 6.459327
+[25] 5.939463 6.371429 7.369691 7.811801 3.604089 2.411946 6.425728 3.770901
+[33] 4.271400 4.292587 4.614517 5.054281 5.097488 7.460972 6.847354 4.795032
+[41] 7.209493 6.756671 7.066580 3.605817 6.309017 6.721787 6.034427 6.603710
+[49] 8.094183 5.312829
+
+[[3]]
+ [1] 4.060978 5.838443 5.529197 3.911691 4.204413 5.968324 5.185104 4.587430
+ [9] 4.167072 5.954883 2.963902 5.074454 4.085469 5.156024 5.029347 6.136878
+[17] 5.004507 6.341705 3.634576 5.926038 4.502632 4.139816 4.939175 6.410276
+[25] 5.003945
+
+[[4]]
+ [1] -0.20154597 -0.65827833 -0.60051651  1.05687088  0.93257344  0.28118730
+ [7] -0.08633255  2.11005192  2.34863453  1.09057861 -0.20859096  0.71816863
+[13]  0.47589288  0.85523112  2.07882359 -1.35495809  0.13041976 -1.13170346
+[19]  1.97418012 -0.67065545 -0.63813849 -3.06113682  0.07904602  0.45442983
+[25] -0.81961482 -0.90587550  2.81018780  1.87563099 -0.37243441 -1.49270980
+[31]  1.23595454  2.12852664 -0.43733272  1.72733398  0.01771562 -0.70295179
+[37] -1.77553877 -0.59234217  0.32081452  1.57584747  0.72396773  0.04939137
+[43]  1.28574907 -0.77098390  0.24146620  0.13549558 -0.02723141 -1.21444677
+[49]  2.19248041 -0.52442339
+
+> lapply(means, simpleNormSim, sim.size=sizes.t, var=vars.t)
+Error in FUN(c(25, 50, 75)[[1L]], ...) (from ex2.r!30474O1O#2) : object 'vars' not found
+> lapply(means, simpleNormSim, sim.size=sizes.t, var=vars.t)
+[[1]]
+[[1]][[1]]
+[1] 27.14616 26.32262 23.65075 24.84312
+
+
+[[2]]
+[[2]][[1]]
+[1] 51.26050 51.44839 50.92547 52.73305
+
+
+[[3]]
+[[3]][[1]]
+[1] 76.28451 75.82901 75.22013 76.87475
+
+
+> length(sizes.t)
+[1] 4
+> seq(1::length(sizes.t))
+Error: unexpected symbol in "seq(1..length"
+> seq(1:length(sizes.t))
+Error: unexpected '::' in "seq(1::"
+> seq(1:length(sizes.t))
+[1] 1 2 3 4
+> means.t[1]
+[1] 0
+>     lapply(idcs, function(x) { return(simpleNormSim(means[x], sizes.t[x], vars.t[x])) })
+
+    lapply(idcs, function(x) { return(simpleNormSim(means[x], sizes.t[x], vars.t[x])) })
+Error in lapply(idcs, function(x) { : object 'idcs' not found
+> idcs = seq(1:length(sizes.t))
+Error in seq(1:length(size.t)) : object 'size.t' not found
+> idcs = seq(1:length(sizes.t))
+> idcs
+[1] 1 2 3 4
+>     lapply(idcs, function(x) { return(simpleNormSim(means[x], sizes.t[x], vars.t[x])) })
+[[1]]
+[[1]][[1]]
+ [1] 23.30680 25.85203 26.09566 24.34204 27.29674 23.72021 25.52347 26.59843
+ [9] 23.97765 23.29190 26.71174 25.53048 25.13502 25.21394 24.32354 25.94535
+[17] 23.86347 25.11053 25.02270 26.01656 25.31882 27.30546 23.58561 24.79536
+[25] 24.97596
+
+
+[[2]]
+[[2]][[1]]
+ [1] 50.05107 50.62219 51.22358 49.02056 50.71994 50.97448 50.08372 50.15256
+ [9] 48.72519 47.71973 47.22390 50.89212 48.24681 52.55442 52.83493 48.80013
+[17] 47.14918 52.38515 51.11034 51.67201 50.36083 50.43152 50.60703 50.06635
+[25] 52.91141 51.23254 49.51157 49.78611 51.11469 50.05039 49.64407 47.06885
+[33] 49.79824 47.86513 50.57069 46.68983 51.80263 48.63309 48.77699 49.48694
+[41] 50.73701 50.51490 49.99729 51.77380 48.24791 50.16408 49.86152 50.32274
+[49] 49.72075 50.38218
+
+
+[[3]]
+[[3]][[1]]
+ [1] 74.55705 75.95778 76.17971 75.32196 74.28757 75.15303 76.00776 77.05195
+ [9] 74.12777 73.56614 74.32137 75.68431 76.19069 74.14053 75.88675 76.82709
+[17] 76.08636 75.53886 75.15864 74.51313 75.58406 74.08854 74.99008 76.39526
+[25] 76.05565
+
+
+[[4]]
+[[4]][[1]]
+ [1] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+[20] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+[39] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+
+
+Warning message:
+In FUN(NA_real_[[1L]], ...) : NAs produced
+> advanced.norm.sim.t
+[[1]]
+ [1]  1.99469634  0.71114251  0.18540528 -0.28176501  0.10877555 -1.08573747
+ [7] -0.98548216  0.01513086 -0.25204590 -1.46575030 -0.92245624  0.03960243
+[13]  0.49382018 -1.82822917  0.09147291  0.67077922 -0.08107805  1.26424109
+[19] -0.70338819 -0.04057817 -1.56616208  0.24914817 -0.34041599  0.41719084
+[25] -0.32646679
+
+[[2]]
+ [1] 3.740934 2.725718 1.715670 2.217932 5.038929 5.683919 5.204124 3.302321
+ [9] 6.251905 6.254316 5.000971 4.019614 5.368878 5.716564 5.798043 5.086497
+[17] 4.846466 4.781228 6.344188 4.310293 3.698581 6.269929 4.496123 6.459327
+[25] 5.939463 6.371429 7.369691 7.811801 3.604089 2.411946 6.425728 3.770901
+[33] 4.271400 4.292587 4.614517 5.054281 5.097488 7.460972 6.847354 4.795032
+[41] 7.209493 6.756671 7.066580 3.605817 6.309017 6.721787 6.034427 6.603710
+[49] 8.094183 5.312829
+
+[[3]]
+ [1] 4.060978 5.838443 5.529197 3.911691 4.204413 5.968324 5.185104 4.587430
+ [9] 4.167072 5.954883 2.963902 5.074454 4.085469 5.156024 5.029347 6.136878
+[17] 5.004507 6.341705 3.634576 5.926038 4.502632 4.139816 4.939175 6.410276
+[25] 5.003945
+
+[[4]]
+ [1] -0.20154597 -0.65827833 -0.60051651  1.05687088  0.93257344  0.28118730
+ [7] -0.08633255  2.11005192  2.34863453  1.09057861 -0.20859096  0.71816863
+[13]  0.47589288  0.85523112  2.07882359 -1.35495809  0.13041976 -1.13170346
+[19]  1.97418012 -0.67065545 -0.63813849 -3.06113682  0.07904602  0.45442983
+[25] -0.81961482 -0.90587550  2.81018780  1.87563099 -0.37243441 -1.49270980
+[31]  1.23595454  2.12852664 -0.43733272  1.72733398  0.01771562 -0.70295179
+[37] -1.77553877 -0.59234217  0.32081452  1.57584747  0.72396773  0.04939137
+[43]  1.28574907 -0.77098390  0.24146620  0.13549558 -0.02723141 -1.21444677
+[49]  2.19248041 -0.52442339
+
+> means.t
+[1] 0 5 5 0
+> sizes.t
+[1] 25 50 25 50
+> }   
+Error: unexpected '}' in "}"
+>     lapply(idcs, function(x) { return(simpleNormSim(means[x], size=sizes.t[x], var=vars.t[x])) })
+Error in simpleNormSim(means[x], size = sizes.t[x], var = vars.t[x]) (from #1) : 
+  unused argument (size = sizes.t[x])
+>     lapply(idcs, function(x) { return(simpleNormSim(means[x], sim.size=sizes.t[x], var=vars.t[x])) })
+[[1]]
+[[1]][[1]]
+ [1] 24.43380 25.84367 25.23593 22.94398 23.83721 26.11548 25.96982 24.45568
+ [9] 24.89545 24.39440 24.15382 24.92222 24.32659 24.77118 27.44494 25.74075
+[17] 23.84119 24.24774 25.62187 23.09827 24.59761 24.99649 26.03357 26.84649
+[25] 26.33363
+
+
+[[2]]
+[[2]][[1]]
+ [1] 49.05699 49.34563 47.24419 51.04191 51.76752 50.71257 48.04766 50.45792
+ [9] 50.89596 51.13861 51.90025 50.61672 49.76771 51.99747 50.04205 50.75968
+[17] 49.68127 52.04841 52.50259 51.70480 47.97770 50.38313 49.11209 52.09313
+[25] 49.44837 49.53541 50.24396 49.21032 50.25599 47.13823 51.71011 48.69868
+[33] 47.80557 50.33125 50.16697 49.88565 48.35096 50.59621 46.98888 52.49156
+[41] 51.30907 49.53231 48.99772 50.70818 47.53736 52.21003 49.96375 50.83850
+[49] 49.40377 50.07078
+
+
+[[3]]
+[[3]][[1]]
+ [1] 76.34650 74.32041 74.45180 75.25031 74.87667 76.02561 77.33118 74.98703
+ [9] 74.42935 73.48738 75.74686 77.07473 74.15634 74.13773 73.42940 74.17650
+[17] 74.38091 76.54224 73.72312 74.54984 73.67874 74.44007 74.53607 75.38717
+[25] 75.54389
+
+
+[[4]]
+[[4]][[1]]
+ [1] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+[20] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+[39] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN
+
+
+Warning message:
+In FUN(NA_real_[[1L]], ...) : NAs produced
+>     lapply(idcs, function(x) { return(rnorm(n=sizes.t[x], mean=means.t[x], sd=sqrt(vars.t[x]))) }
++ )
+Error in rnorm(n = sim.sizes[x], mean = means[x], sd = sqrt(vars[x])) (from #1) : 
+  object 'sim.sizes' not found
+>     lapply(idcs, function(x) { return(rnorm(n=sizes.t[x], mean=means.t[x], sd=sqrt(vars.t[x]))) }
+)
+    lapply(idcs, function(x) { return(rnorm(n=sizes.t[x], mean=means.t[x], sd=sqrt(vars.t[x]))) }
++ )
+[[1]]
+ [1]  0.75488860  2.51914720  1.75528738  1.58500787 -0.43492112  0.79913579
+ [7]  1.45264220 -1.41227832 -0.37821988 -0.87696754 -0.21409437 -1.12454747
+[13] -1.27758468 -0.02589765  0.58256661  0.91146968 -0.62793901 -0.43138477
+[19]  1.02498704 -0.47879450 -1.35143330  0.12063053  0.32530404  0.52622255
+[25] -2.93420086
+
+[[2]]
+ [1] 2.670536 6.436875 5.853335 5.284487 5.306783 8.251067 3.809345 5.170575
+ [9] 3.512554 5.463772 1.129348 3.160705 6.085140 5.197215 5.490882 5.994660
+[17] 7.548109 5.103559 4.121012 6.135940 6.760788 4.919562 3.749879 4.976473
+[25] 5.028983 6.453763 2.985961 2.613387 4.976510 1.982866 5.292972 5.039321
+[33] 4.353688 2.964580 5.475064 4.388654 2.599387 6.205199 4.975311 4.759757
+[41] 4.003793 5.832210 6.111016 4.333713 4.911650 3.609989 4.965434 3.123788
+[49] 4.945416 4.932784
+
+[[3]]
+ [1] 4.244610 4.322917 6.036312 5.001082 5.265722 4.395648 5.858913 5.128965
+ [9] 5.347994 5.867140 5.832748 5.486498 6.899325 4.557247 6.565519 5.626110
+[17] 4.009885 4.198710 3.578909 3.658402 3.950411 4.569666 5.140934 5.669043
+[25] 5.562929
+
+[[4]]
+ [1] -0.30180399  0.87974528 -0.37791163 -1.37274955  1.31235759  0.82652702
+ [7]  1.94490955 -4.25398043 -0.67531973  0.02050828 -0.03119530 -0.75337943
+[13]  2.48052638  0.44114590 -0.67539730  2.75226045  2.88149674 -1.95253476
+[19] -0.43127996 -0.93354658 -1.12698002  1.45080421 -0.15250576  0.58790363
+[25]  1.78979537 -0.20923564  1.72361540 -0.11686540 -2.15780463 -2.41779673
+[31]  0.60642307  0.98871693  1.37487045  1.31900742  1.40275970 -1.54493454
+[37]  1.55427672  2.78015888  0.85296282  1.03744415 -2.09329838 -3.00147472
+[43]  1.05340815  2.73511063  0.51748159 -2.80659802 -0.57713420  0.62279709
+[49] -0.84490286 -1.44191175
+
+> 
++ . + 
+> advancedNormSim <- function(sim.sizes, means, vars) {
++ 
++     stopifnot(all.equal(length(sim.sizes), length(means), length(vars)))
++ 
++     idcs = seq(1:length(sim.sizes))
++     lapply(idcs, function(x) { return(rnorm(n=sim.sizes[x], mean=means[x], sd=sqrt(vars[x]))) } )
++ }
+> sizes.t <- c(25, 50, 25, 50)
+> means.t <- c(0, 5, 5, 0)
+> vars.t <- c(1, 2, 1, 2)
+> 
+> set.seed(47)
+> tryCatch(checkIdentical(advanced.norm.sim.t, advancedNormSim(sizes.t, means.t,
++                                                              vars.t)),
++          error=function(err) errMsg(err))
+[1] TRUE
+> 
+> + Sourced file '/Users/Joel/stat133/src/stat133/hw2/ex2.r'
+> q()
+Save workspace image? [y/n/c]: n
+
+Process R finished at Wed Jul  2 11:46:26 2014
+
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> > options(STERM='iESS', str.dendrogram.last="'", editor='emacsclient', show.error.locations=TRUE)
+> ls()
+character(0)
+> character(0)
+character(0)
+> library(RUnit)
+> errMsg <- function(err) print(err)
+> load('ex3-tests.rda')
+> q()
+Save workspace image? [y/n/c]: n
+
+Process R finished at Wed Jul  2 11:47:15 2014
+
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> > options(STERM='iESS', str.dendrogram.last="'", editor='emacsclient', show.error.locations=TRUE)
+> library(RUnit)
+> errMsg <- function(err) print(err)
+> load('ex1-tests.rda')
+> 
++ . + 
+> outlierCutoff <- function(data) {
++     # your code here
++     data.medians = apply(data, 2, median)
++     data.IQRs = apply(data, 2, IQR)
++     data.lowers = data.medians - 1.5 * data.IQRs
++     data.uppers = data.medians + 1.5 * data.IQRs
++     outlier.cutoffs = rbind(data.lowers, data.uppers)
++ .... [TRUNCATED] 
+> tryCatch(checkIdentical(outlier.cutoff.t, outlierCutoff(ex1.test)),
++          error=function(err) errMsg(err))
+[1] TRUE
+> ls()
+[1] "errMsg"           "ex1.test"         "outlier.cutoff.t" "outlierCutoff"   
+[5] "remove.outlier.t"
+> data = ex1.test
+> head(data, 4)
+          V1          V2        V3         V4         V5
+1 -0.7851630  0.39087901 1.4535353 -1.0253637  1.3312963
+2 -0.5572134  0.01174227 1.2175729 -2.7231538 -0.4223854
+3  0.6836717 -0.21168892 0.9239929  0.1602121  0.8443970
+4 -1.5790590 -0.37353879 0.9364962  0.8670081 -1.0164160
+> length(data)
+[1] 5
+> dim(data)
+[1] 100   5
+> dim(data)[1]
+[1] 100
+> data[95]
+Error in `[.data.frame`(data, 95) : undefined columns selected
+> data.outlier.bounds = outlierCutoff(data)
+>     data.lower.bounds = data.outlier.bounds[1, ]
+>     data.upper.bounds = data.outlier.bounds[2, ]
+> data.lower.bounds
+       V1        V2        V3        V4        V5 
+-1.978939 -1.473726 -2.353397 -2.693186 -2.248531 
+> data.upper.bounds
+      V1       V2       V3       V4       V5 
+1.753000 2.108025 2.270689 2.572128 2.251644 
+>     idcs = seq(1:dim(data)[2])
+> idcs
+[1] 1 2 3 4 5
+> row = c(23, 14, 2, 12)
+> lower = c(13, 13, 13, 13)
+> row < lower
+[1] FALSE FALSE  TRUE  TRUE
+>     data.outliers = apply(data, 1, checkEachRow)
+Error in match.fun(FUN) : object 'checkEachRow' not found
+> 
++ . + Error in ss(file, echo = echo, local = local, print.eval = print.eval,  : 
+  /var/folders/nq/xsk7jf6n70vccm4hw_s669ww0000gn/T/ex1.r!304741Th:2:33: unexpected '<'
+1: checkEachRow <- function(row) {
+2:         too.small = sapply(row, <
+                                   ^
+> 
++ . + 
+> checkEachRow <- function(row) {
++         too.small = sapply(row, '<', data.lower.bounds)
++         too.big = sapply(row, '>', data.upper.bounds)
++         num = sum(too.small) + sum(too.big)
++         return(num)
++     }
+>     data.outliers = apply(data, 1, checkEachRow)
+> data.outliers
+  [1]  0  5  0  1  2  0  0  0  2  0  0  0  0  2  2  4  0  2  5  0  4  0  1  0 25
+ [26]  0  1  2  1  0  1  0  0  0  0  4  0  0  0  0  1  0  0  0  0  0  0  0  1 25
+ [51]  0  0  0  5  0  2  0  0  0  3  0  0  0  0  5  0  5  0  3  0  0  0  0  1 25
+ [76]  4  3  2  0  0  1  1  0  0  0  0  1  0  0  0  1  1  1  0  0  0  0  1  0  0
+> head(data, 4)
+          V1          V2        V3         V4         V5
+1 -0.7851630  0.39087901 1.4535353 -1.0253637  1.3312963
+2 -0.5572134  0.01174227 1.2175729 -2.7231538 -0.4223854
+3  0.6836717 -0.21168892 0.9239929  0.1602121  0.8443970
+4 -1.5790590 -0.37353879 0.9364962  0.8670081 -1.0164160
+> row = data[1, ]
+> row
+         V1       V2       V3        V4       V5
+1 -0.785163 0.390879 1.453535 -1.025364 1.331296
+> sapply(row, '<', data.lower.bounds)
+      V1    V2    V3    V4    V5
+V1 FALSE FALSE FALSE FALSE FALSE
+V2 FALSE FALSE FALSE FALSE FALSE
+V3 FALSE FALSE FALSE FALSE FALSE
+V4 FALSE FALSE FALSE FALSE FALSE
+V5 FALSE FALSE FALSE FALSE FALSE
+>         too.small = sapply(idcs, function(x) { return(row[x] < data.lower.bounds[x]) })
+> too.small
+[1] FALSE FALSE FALSE FALSE FALSE
+> 
++ . + 
+> checkEachRow <- function(row, idcs) {
++         too.small = sapply(idcs, function(x) { return(row[x] < data.lower.bounds[x]) })
++         too.big = sapply(idcs, function(x) { return(row[x] > data.upper.bounds[x]) })
++         num = sum(too.small) + sum(too.big)
++         return(num)
++     }
+>     data.outliers = apply(data, 1, checkEachRow, idcs=idcs)
+> data.outliers
+  [1] 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 0 5 0 0 0 0 0 0 0 0 0 0 1 0
+ [38] 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 1 0 0 0 0 0 0 0 0 0 0 2 0 1 0 0 0 0 0 0 0
+ [75] 5 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
+> 
++ . + 
+> removeOutliers <- function(data, max.outlier.rate) {
++ 
++     stopifnot(max.outlier.rate>=0 & max.outlier.rate<=1)
++     
++     data.outlier.bounds = outlierCutoff(data)
++     data.lower.bounds = data.outlier.bounds[1, ]
++     data.upper.bounds = data.outlier.bounds[2, ]
++ 
++     checkEachRow <- f .... [TRUNCATED] 
+> tryCatch(checkIdentical(remove.outlier.t, removeOutliers(ex1.test, 0.25)),
+         error=function(err) errMsg(err))
++ [1] TRUE
+> q()
+Save workspace image? [y/n/c]: n
+
+Process R finished at Wed Jul  2 12:02:43 2014
+
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> > options(STERM='iESS', str.dendrogram.last="'", editor='emacsclient', show.error.locations=TRUE)
+> library(RUnit)
+> errMsg <- function(err) print(err)
+> load('ex3-tests.rda')
+> mean.by.level.t
+           Sepal.Length Sepal.Width Petal.Length Petal.Width
+setosa            5.006       3.428        1.462       0.246
+versicolor        5.936       2.770        4.260       1.326
+virginica         6.588       2.974        5.552       2.026
+> iris
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1            5.1         3.5          1.4         0.2     setosa
+2            4.9         3.0          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+5            5.0         3.6          1.4         0.2     setosa
+6            5.4         3.9          1.7         0.4     setosa
+7            4.6         3.4          1.4         0.3     setosa
+8            5.0         3.4          1.5         0.2     setosa
+9            4.4         2.9          1.4         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+11           5.4         3.7          1.5         0.2     setosa
+12           4.8         3.4          1.6         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+14           4.3         3.0          1.1         0.1     setosa
+15           5.8         4.0          1.2         0.2     setosa
+16           5.7         4.4          1.5         0.4     setosa
+17           5.4         3.9          1.3         0.4     setosa
+18           5.1         3.5          1.4         0.3     setosa
+19           5.7         3.8          1.7         0.3     setosa
+20           5.1         3.8          1.5         0.3     setosa
+21           5.4         3.4          1.7         0.2     setosa
+22           5.1         3.7          1.5         0.4     setosa
+23           4.6         3.6          1.0         0.2     setosa
+24           5.1         3.3          1.7         0.5     setosa
+25           4.8         3.4          1.9         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+28           5.2         3.5          1.5         0.2     setosa
+29           5.2         3.4          1.4         0.2     setosa
+30           4.7         3.2          1.6         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+33           5.2         4.1          1.5         0.1     setosa
+34           5.5         4.2          1.4         0.2     setosa
+35           4.9         3.1          1.5         0.2     setosa
+36           5.0         3.2          1.2         0.2     setosa
+37           5.5         3.5          1.3         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+39           4.4         3.0          1.3         0.2     setosa
+40           5.1         3.4          1.5         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+42           4.5         2.3          1.3         0.3     setosa
+43           4.4         3.2          1.3         0.2     setosa
+44           5.0         3.5          1.6         0.6     setosa
+45           5.1         3.8          1.9         0.4     setosa
+46           4.8         3.0          1.4         0.3     setosa
+47           5.1         3.8          1.6         0.2     setosa
+48           4.6         3.2          1.4         0.2     setosa
+49           5.3         3.7          1.5         0.2     setosa
+50           5.0         3.3          1.4         0.2     setosa
+51           7.0         3.2          4.7         1.4 versicolor
+52           6.4         3.2          4.5         1.5 versicolor
+53           6.9         3.1          4.9         1.5 versicolor
+54           5.5         2.3          4.0         1.3 versicolor
+55           6.5         2.8          4.6         1.5 versicolor
+56           5.7         2.8          4.5         1.3 versicolor
+57           6.3         3.3          4.7         1.6 versicolor
+58           4.9         2.4          3.3         1.0 versicolor
+59           6.6         2.9          4.6         1.3 versicolor
+60           5.2         2.7          3.9         1.4 versicolor
+61           5.0         2.0          3.5         1.0 versicolor
+62           5.9         3.0          4.2         1.5 versicolor
+63           6.0         2.2          4.0         1.0 versicolor
+64           6.1         2.9          4.7         1.4 versicolor
+65           5.6         2.9          3.6         1.3 versicolor
+66           6.7         3.1          4.4         1.4 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+68           5.8         2.7          4.1         1.0 versicolor
+69           6.2         2.2          4.5         1.5 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+77           6.8         2.8          4.8         1.4 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+84           6.0         2.7          5.1         1.6 versicolor
+85           5.4         3.0          4.5         1.5 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+99           5.1         2.5          3.0         1.1 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+101          6.3         3.3          6.0         2.5  virginica
+102          5.8         2.7          5.1         1.9  virginica
+103          7.1         3.0          5.9         2.1  virginica
+104          6.3         2.9          5.6         1.8  virginica
+105          6.5         3.0          5.8         2.2  virginica
+106          7.6         3.0          6.6         2.1  virginica
+107          4.9         2.5          4.5         1.7  virginica
+108          7.3         2.9          6.3         1.8  virginica
+109          6.7         2.5          5.8         1.8  virginica
+110          7.2         3.6          6.1         2.5  virginica
+111          6.5         3.2          5.1         2.0  virginica
+112          6.4         2.7          5.3         1.9  virginica
+113          6.8         3.0          5.5         2.1  virginica
+114          5.7         2.5          5.0         2.0  virginica
+115          5.8         2.8          5.1         2.4  virginica
+116          6.4         3.2          5.3         2.3  virginica
+117          6.5         3.0          5.5         1.8  virginica
+118          7.7         3.8          6.7         2.2  virginica
+119          7.7         2.6          6.9         2.3  virginica
+120          6.0         2.2          5.0         1.5  virginica
+121          6.9         3.2          5.7         2.3  virginica
+122          5.6         2.8          4.9         2.0  virginica
+123          7.7         2.8          6.7         2.0  virginica
+124          6.3         2.7          4.9         1.8  virginica
+125          6.7         3.3          5.7         2.1  virginica
+126          7.2         3.2          6.0         1.8  virginica
+127          6.2         2.8          4.8         1.8  virginica
+128          6.1         3.0          4.9         1.8  virginica
+129          6.4         2.8          5.6         2.1  virginica
+130          7.2         3.0          5.8         1.6  virginica
+131          7.4         2.8          6.1         1.9  virginica
+132          7.9         3.8          6.4         2.0  virginica
+133          6.4         2.8          5.6         2.2  virginica
+134          6.3         2.8          5.1         1.5  virginica
+135          6.1         2.6          5.6         1.4  virginica
+136          7.7         3.0          6.1         2.3  virginica
+137          6.3         3.4          5.6         2.4  virginica
+138          6.4         3.1          5.5         1.8  virginica
+139          6.0         3.0          4.8         1.8  virginica
+140          6.9         3.1          5.4         2.1  virginica
+141          6.7         3.1          5.6         2.4  virginica
+142          6.9         3.1          5.1         2.3  virginica
+143          5.8         2.7          5.1         1.9  virginica
+144          6.8         3.2          5.9         2.3  virginica
+145          6.7         3.3          5.7         2.5  virginica
+146          6.7         3.0          5.2         2.3  virginica
+147          6.3         2.5          5.0         1.9  virginica
+148          6.5         3.0          5.2         2.0  virginica
+149          6.2         3.4          5.4         2.3  virginica
+150          5.9         3.0          5.1         1.8  virginica
+> iris = data
+> data
+function (..., list = character(), package = NULL, lib.loc = NULL, 
+    verbose = getOption("verbose"), envir = .GlobalEnv) 
+{
+    fileExt <- function(x) {
+        db <- grepl("\\.[^.]+\\.(gz|bz2|xz)$", x)
+        ans <- sub(".*\\.", "", x)
+        ans[db] <- sub(".*\\.([^.]+\\.)(gz|bz2|xz)$", "\\1\\2", 
+            x[db])
+        ans
+    }
+    names <- c(as.character(substitute(list(...))[-1L]), list)
+    if (!is.null(package)) {
+        if (!is.character(package)) 
+            stop("'package' must be a character string or NULL")
+        if (any(package %in% "base")) 
+            warning("datasets have been moved from package 'base' to package 'datasets'")
+        if (any(package %in% "stats")) 
+            warning("datasets have been moved from package 'stats' to package 'datasets'")
+        package[package %in% c("base", "stats")] <- "datasets"
+    }
+    paths <- find.package(package, lib.loc, verbose = verbose)
+    if (is.null(lib.loc)) 
+        paths <- c(path.package(package, TRUE), if (!length(package)) getwd(), 
+            paths)
+    paths <- unique(paths[file.exists(paths)])
+    paths <- paths[file_test("-d", file.path(paths, "data"))]
+    dataExts <- tools:::.make_file_exts("data")
+    if (length(names) == 0L) {
+        db <- matrix(character(), nrow = 0L, ncol = 4L)
+        for (path in paths) {
+            entries <- NULL
+            packageName <- if (file_test("-f", file.path(path, 
+                "DESCRIPTION"))) 
+                basename(path)
+            else "."
+            if (file_test("-f", INDEX <- file.path(path, "Meta", 
+                "data.rds"))) {
+                entries <- readRDS(INDEX)
+            }
+            else {
+                dataDir <- file.path(path, "data")
+                entries <- tools::list_files_with_type(dataDir, 
+                  "data")
+                if (length(entries)) {
+                  entries <- unique(tools::file_path_sans_ext(basename(entries)))
+                  entries <- cbind(entries, "")
+                }
+            }
+            if (NROW(entries)) {
+                if (is.matrix(entries) && ncol(entries) == 2L) 
+                  db <- rbind(db, cbind(packageName, dirname(path), 
+                    entries))
+                else warning(gettextf("data index for package %s is invalid and will be ignored", 
+                  sQuote(packageName)), domain = NA, call. = FALSE)
+            }
+        }
+        colnames(db) <- c("Package", "LibPath", "Item", "Title")
+        footer <- if (missing(package)) 
+            paste0("Use ", sQuote(paste("data(package =", ".packages(all.available = TRUE))")), 
+                "\n", "to list the data sets in all *available* packages.")
+        else NULL
+        y <- list(title = "Data sets", header = NULL, results = db, 
+            footer = footer)
+        class(y) <- "packageIQR"
+        return(y)
+    }
+    paths <- file.path(paths, "data")
+    for (name in names) {
+        found <- FALSE
+        for (p in paths) {
+            if (file_test("-f", file.path(p, "Rdata.rds"))) {
+                rds <- readRDS(file.path(p, "Rdata.rds"))
+                if (name %in% names(rds)) {
+                  found <- TRUE
+                  if (verbose) 
+                    message(sprintf("name=%s:\t found in Rdata.rds", 
+                      name), domain = NA)
+                  thispkg <- sub(".*/([^/]*)/data$", "\\1", p)
+                  thispkg <- sub("_.*$", "", thispkg)
+                  thispkg <- paste0("package:", thispkg)
+                  objs <- rds[[name]]
+                  lazyLoad(file.path(p, "Rdata"), envir = envir, 
+                    filter = function(x) x %in% objs)
+                  break
+                }
+                else if (verbose) 
+                  message(sprintf("name=%s:\t NOT found in names() of Rdata.rds, i.e.,\n\t%s\n", 
+                    name, paste(names(rds), collapse = ",")), 
+                    domain = NA)
+            }
+            if (file_test("-f", file.path(p, "Rdata.zip"))) {
+                warning("zipped data found for package ", sQuote(basename(dirname(p))), 
+                  ".\nThat is defunct, so please re-install the package.", 
+                  domain = NA)
+                if (file_test("-f", fp <- file.path(p, "filelist"))) 
+                  files <- file.path(p, scan(fp, what = "", quiet = TRUE))
+                else {
+                  warning(gettextf("file 'filelist' is missing for directory %s", 
+                    sQuote(p)), domain = NA)
+                  next
+                }
+            }
+            else {
+                files <- list.files(p, full.names = TRUE)
+            }
+            files <- files[grep(name, files, fixed = TRUE)]
+            if (length(files) > 1L) {
+                o <- match(fileExt(files), dataExts, nomatch = 100L)
+                paths0 <- dirname(files)
+                paths0 <- factor(paths0, levels = unique(paths0))
+                files <- files[order(paths0, o)]
+            }
+            if (length(files)) {
+                for (file in files) {
+                  if (verbose) 
+                    message("name=", name, ":\t file= ...", .Platform$file.sep, 
+                      basename(file), "::\t", appendLF = FALSE, 
+                      domain = NA)
+                  ext <- fileExt(file)
+                  if (basename(file) != paste0(name, ".", ext)) 
+                    found <- FALSE
+                  else {
+                    found <- TRUE
+                    zfile <- file
+                    zipname <- file.path(dirname(file), "Rdata.zip")
+                    if (file.exists(zipname)) {
+                      Rdatadir <- tempfile("Rdata")
+                      dir.create(Rdatadir, showWarnings = FALSE)
+                      topic <- basename(file)
+                      rc <- .External(C_unzip, zipname, topic, 
+                        Rdatadir, FALSE, TRUE, FALSE, FALSE)
+                      if (rc == 0L) 
+                        zfile <- file.path(Rdatadir, topic)
+                    }
+                    if (zfile != file) 
+                      on.exit(unlink(zfile))
+                    switch(ext, R = , r = {
+                      library("utils")
+                      sys.source(zfile, chdir = TRUE, envir = envir)
+                    }, RData = , rdata = , rda = load(zfile, 
+                      envir = envir), TXT = , txt = , tab = , 
+                      tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , 
+                      txt.bz2 = , txt.xz = assign(name, read.table(zfile, 
+                        header = TRUE, as.is = FALSE), envir = envir), 
+                      CSV = , csv = , csv.gz = , csv.bz2 = , 
+                      csv.xz = assign(name, read.table(zfile, 
+                        header = TRUE, sep = ";", as.is = FALSE), 
+                        envir = envir), found <- FALSE)
+                  }
+                  if (found) 
+                    break
+                }
+                if (verbose) 
+                  message(if (!found) 
+                    "*NOT* ", "found", domain = NA)
+            }
+            if (found) 
+                break
+        }
+        if (!found) 
+            warning(gettextf("data set %s not found", sQuote(name)), 
+                domain = NA)
+    }
+    invisible(names)
+}
+<bytecode: 0x7fa9db08f9c8>
+<environment: namespace:utils>
+> iris
+function (..., list = character(), package = NULL, lib.loc = NULL, 
+    verbose = getOption("verbose"), envir = .GlobalEnv) 
+{
+    fileExt <- function(x) {
+        db <- grepl("\\.[^.]+\\.(gz|bz2|xz)$", x)
+        ans <- sub(".*\\.", "", x)
+        ans[db] <- sub(".*\\.([^.]+\\.)(gz|bz2|xz)$", "\\1\\2", 
+            x[db])
+        ans
+    }
+    names <- c(as.character(substitute(list(...))[-1L]), list)
+    if (!is.null(package)) {
+        if (!is.character(package)) 
+            stop("'package' must be a character string or NULL")
+        if (any(package %in% "base")) 
+            warning("datasets have been moved from package 'base' to package 'datasets'")
+        if (any(package %in% "stats")) 
+            warning("datasets have been moved from package 'stats' to package 'datasets'")
+        package[package %in% c("base", "stats")] <- "datasets"
+    }
+    paths <- find.package(package, lib.loc, verbose = verbose)
+    if (is.null(lib.loc)) 
+        paths <- c(path.package(package, TRUE), if (!length(package)) getwd(), 
+            paths)
+    paths <- unique(paths[file.exists(paths)])
+    paths <- paths[file_test("-d", file.path(paths, "data"))]
+    dataExts <- tools:::.make_file_exts("data")
+    if (length(names) == 0L) {
+        db <- matrix(character(), nrow = 0L, ncol = 4L)
+        for (path in paths) {
+            entries <- NULL
+            packageName <- if (file_test("-f", file.path(path, 
+                "DESCRIPTION"))) 
+                basename(path)
+            else "."
+            if (file_test("-f", INDEX <- file.path(path, "Meta", 
+                "data.rds"))) {
+                entries <- readRDS(INDEX)
+            }
+            else {
+                dataDir <- file.path(path, "data")
+                entries <- tools::list_files_with_type(dataDir, 
+                  "data")
+                if (length(entries)) {
+                  entries <- unique(tools::file_path_sans_ext(basename(entries)))
+                  entries <- cbind(entries, "")
+                }
+            }
+            if (NROW(entries)) {
+                if (is.matrix(entries) && ncol(entries) == 2L) 
+                  db <- rbind(db, cbind(packageName, dirname(path), 
+                    entries))
+                else warning(gettextf("data index for package %s is invalid and will be ignored", 
+                  sQuote(packageName)), domain = NA, call. = FALSE)
+            }
+        }
+        colnames(db) <- c("Package", "LibPath", "Item", "Title")
+        footer <- if (missing(package)) 
+            paste0("Use ", sQuote(paste("data(package =", ".packages(all.available = TRUE))")), 
+                "\n", "to list the data sets in all *available* packages.")
+        else NULL
+        y <- list(title = "Data sets", header = NULL, results = db, 
+            footer = footer)
+        class(y) <- "packageIQR"
+        return(y)
+    }
+    paths <- file.path(paths, "data")
+    for (name in names) {
+        found <- FALSE
+        for (p in paths) {
+            if (file_test("-f", file.path(p, "Rdata.rds"))) {
+                rds <- readRDS(file.path(p, "Rdata.rds"))
+                if (name %in% names(rds)) {
+                  found <- TRUE
+                  if (verbose) 
+                    message(sprintf("name=%s:\t found in Rdata.rds", 
+                      name), domain = NA)
+                  thispkg <- sub(".*/([^/]*)/data$", "\\1", p)
+                  thispkg <- sub("_.*$", "", thispkg)
+                  thispkg <- paste0("package:", thispkg)
+                  objs <- rds[[name]]
+                  lazyLoad(file.path(p, "Rdata"), envir = envir, 
+                    filter = function(x) x %in% objs)
+                  break
+                }
+                else if (verbose) 
+                  message(sprintf("name=%s:\t NOT found in names() of Rdata.rds, i.e.,\n\t%s\n", 
+                    name, paste(names(rds), collapse = ",")), 
+                    domain = NA)
+            }
+            if (file_test("-f", file.path(p, "Rdata.zip"))) {
+                warning("zipped data found for package ", sQuote(basename(dirname(p))), 
+                  ".\nThat is defunct, so please re-install the package.", 
+                  domain = NA)
+                if (file_test("-f", fp <- file.path(p, "filelist"))) 
+                  files <- file.path(p, scan(fp, what = "", quiet = TRUE))
+                else {
+                  warning(gettextf("file 'filelist' is missing for directory %s", 
+                    sQuote(p)), domain = NA)
+                  next
+                }
+            }
+            else {
+                files <- list.files(p, full.names = TRUE)
+            }
+            files <- files[grep(name, files, fixed = TRUE)]
+            if (length(files) > 1L) {
+                o <- match(fileExt(files), dataExts, nomatch = 100L)
+                paths0 <- dirname(files)
+                paths0 <- factor(paths0, levels = unique(paths0))
+                files <- files[order(paths0, o)]
+            }
+            if (length(files)) {
+                for (file in files) {
+                  if (verbose) 
+                    message("name=", name, ":\t file= ...", .Platform$file.sep, 
+                      basename(file), "::\t", appendLF = FALSE, 
+                      domain = NA)
+                  ext <- fileExt(file)
+                  if (basename(file) != paste0(name, ".", ext)) 
+                    found <- FALSE
+                  else {
+                    found <- TRUE
+                    zfile <- file
+                    zipname <- file.path(dirname(file), "Rdata.zip")
+                    if (file.exists(zipname)) {
+                      Rdatadir <- tempfile("Rdata")
+                      dir.create(Rdatadir, showWarnings = FALSE)
+                      topic <- basename(file)
+                      rc <- .External(C_unzip, zipname, topic, 
+                        Rdatadir, FALSE, TRUE, FALSE, FALSE)
+                      if (rc == 0L) 
+                        zfile <- file.path(Rdatadir, topic)
+                    }
+                    if (zfile != file) 
+                      on.exit(unlink(zfile))
+                    switch(ext, R = , r = {
+                      library("utils")
+                      sys.source(zfile, chdir = TRUE, envir = envir)
+                    }, RData = , rdata = , rda = load(zfile, 
+                      envir = envir), TXT = , txt = , tab = , 
+                      tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , 
+                      txt.bz2 = , txt.xz = assign(name, read.table(zfile, 
+                        header = TRUE, as.is = FALSE), envir = envir), 
+                      CSV = , csv = , csv.gz = , csv.bz2 = , 
+                      csv.xz = assign(name, read.table(zfile, 
+                        header = TRUE, sep = ";", as.is = FALSE), 
+                        envir = envir), found <- FALSE)
+                  }
+                  if (found) 
+                    break
+                }
+                if (verbose) 
+                  message(if (!found) 
+                    "*NOT* ", "found", domain = NA)
+            }
+            if (found) 
+                break
+        }
+        if (!found) 
+            warning(gettextf("data set %s not found", sQuote(name)), 
+                domain = NA)
+    }
+    invisible(names)
+}
+<bytecode: 0x7fa9db08f9c8>
+<environment: namespace:utils>
+> ls()
+[1] "errMsg"           "iris"             "mean.by.level.t"  "std.level.diff.t"
+> iris
+function (..., list = character(), package = NULL, lib.loc = NULL, 
+    verbose = getOption("verbose"), envir = .GlobalEnv) 
+{
+    fileExt <- function(x) {
+        db <- grepl("\\.[^.]+\\.(gz|bz2|xz)$", x)
+        ans <- sub(".*\\.", "", x)
+        ans[db] <- sub(".*\\.([^.]+\\.)(gz|bz2|xz)$", "\\1\\2", 
+            x[db])
+        ans
+    }
+    names <- c(as.character(substitute(list(...))[-1L]), list)
+    if (!is.null(package)) {
+        if (!is.character(package)) 
+            stop("'package' must be a character string or NULL")
+        if (any(package %in% "base")) 
+            warning("datasets have been moved from package 'base' to package 'datasets'")
+        if (any(package %in% "stats")) 
+            warning("datasets have been moved from package 'stats' to package 'datasets'")
+        package[package %in% c("base", "stats")] <- "datasets"
+    }
+    paths <- find.package(package, lib.loc, verbose = verbose)
+    if (is.null(lib.loc)) 
+        paths <- c(path.package(package, TRUE), if (!length(package)) getwd(), 
+            paths)
+    paths <- unique(paths[file.exists(paths)])
+    paths <- paths[file_test("-d", file.path(paths, "data"))]
+    dataExts <- tools:::.make_file_exts("data")
+    if (length(names) == 0L) {
+        db <- matrix(character(), nrow = 0L, ncol = 4L)
+        for (path in paths) {
+            entries <- NULL
+            packageName <- if (file_test("-f", file.path(path, 
+                "DESCRIPTION"))) 
+                basename(path)
+            else "."
+            if (file_test("-f", INDEX <- file.path(path, "Meta", 
+                "data.rds"))) {
+                entries <- readRDS(INDEX)
+            }
+            else {
+                dataDir <- file.path(path, "data")
+                entries <- tools::list_files_with_type(dataDir, 
+                  "data")
+                if (length(entries)) {
+                  entries <- unique(tools::file_path_sans_ext(basename(entries)))
+                  entries <- cbind(entries, "")
+                }
+            }
+            if (NROW(entries)) {
+                if (is.matrix(entries) && ncol(entries) == 2L) 
+                  db <- rbind(db, cbind(packageName, dirname(path), 
+                    entries))
+                else warning(gettextf("data index for package %s is invalid and will be ignored", 
+                  sQuote(packageName)), domain = NA, call. = FALSE)
+            }
+        }
+        colnames(db) <- c("Package", "LibPath", "Item", "Title")
+        footer <- if (missing(package)) 
+            paste0("Use ", sQuote(paste("data(package =", ".packages(all.available = TRUE))")), 
+                "\n", "to list the data sets in all *available* packages.")
+        else NULL
+        y <- list(title = "Data sets", header = NULL, results = db, 
+            footer = footer)
+        class(y) <- "packageIQR"
+        return(y)
+    }
+    paths <- file.path(paths, "data")
+    for (name in names) {
+        found <- FALSE
+        for (p in paths) {
+            if (file_test("-f", file.path(p, "Rdata.rds"))) {
+                rds <- readRDS(file.path(p, "Rdata.rds"))
+                if (name %in% names(rds)) {
+                  found <- TRUE
+                  if (verbose) 
+                    message(sprintf("name=%s:\t found in Rdata.rds", 
+                      name), domain = NA)
+                  thispkg <- sub(".*/([^/]*)/data$", "\\1", p)
+                  thispkg <- sub("_.*$", "", thispkg)
+                  thispkg <- paste0("package:", thispkg)
+                  objs <- rds[[name]]
+                  lazyLoad(file.path(p, "Rdata"), envir = envir, 
+                    filter = function(x) x %in% objs)
+                  break
+                }
+                else if (verbose) 
+                  message(sprintf("name=%s:\t NOT found in names() of Rdata.rds, i.e.,\n\t%s\n", 
+                    name, paste(names(rds), collapse = ",")), 
+                    domain = NA)
+            }
+            if (file_test("-f", file.path(p, "Rdata.zip"))) {
+                warning("zipped data found for package ", sQuote(basename(dirname(p))), 
+                  ".\nThat is defunct, so please re-install the package.", 
+                  domain = NA)
+                if (file_test("-f", fp <- file.path(p, "filelist"))) 
+                  files <- file.path(p, scan(fp, what = "", quiet = TRUE))
+                else {
+                  warning(gettextf("file 'filelist' is missing for directory %s", 
+                    sQuote(p)), domain = NA)
+                  next
+                }
+            }
+            else {
+                files <- list.files(p, full.names = TRUE)
+            }
+            files <- files[grep(name, files, fixed = TRUE)]
+            if (length(files) > 1L) {
+                o <- match(fileExt(files), dataExts, nomatch = 100L)
+                paths0 <- dirname(files)
+                paths0 <- factor(paths0, levels = unique(paths0))
+                files <- files[order(paths0, o)]
+            }
+            if (length(files)) {
+                for (file in files) {
+                  if (verbose) 
+                    message("name=", name, ":\t file= ...", .Platform$file.sep, 
+                      basename(file), "::\t", appendLF = FALSE, 
+                      domain = NA)
+                  ext <- fileExt(file)
+                  if (basename(file) != paste0(name, ".", ext)) 
+                    found <- FALSE
+                  else {
+                    found <- TRUE
+                    zfile <- file
+                    zipname <- file.path(dirname(file), "Rdata.zip")
+                    if (file.exists(zipname)) {
+                      Rdatadir <- tempfile("Rdata")
+                      dir.create(Rdatadir, showWarnings = FALSE)
+                      topic <- basename(file)
+                      rc <- .External(C_unzip, zipname, topic, 
+                        Rdatadir, FALSE, TRUE, FALSE, FALSE)
+                      if (rc == 0L) 
+                        zfile <- file.path(Rdatadir, topic)
+                    }
+                    if (zfile != file) 
+                      on.exit(unlink(zfile))
+                    switch(ext, R = , r = {
+                      library("utils")
+                      sys.source(zfile, chdir = TRUE, envir = envir)
+                    }, RData = , rdata = , rda = load(zfile, 
+                      envir = envir), TXT = , txt = , tab = , 
+                      tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , 
+                      txt.bz2 = , txt.xz = assign(name, read.table(zfile, 
+                        header = TRUE, as.is = FALSE), envir = envir), 
+                      CSV = , csv = , csv.gz = , csv.bz2 = , 
+                      csv.xz = assign(name, read.table(zfile, 
+                        header = TRUE, sep = ";", as.is = FALSE), 
+                        envir = envir), found <- FALSE)
+                  }
+                  if (found) 
+                    break
+                }
+                if (verbose) 
+                  message(if (!found) 
+                    "*NOT* ", "found", domain = NA)
+            }
+            if (found) 
+                break
+        }
+        if (!found) 
+            warning(gettextf("data set %s not found", sQuote(name)), 
+                domain = NA)
+    }
+    invisible(names)
+}
+<bytecode: 0x7fa9db08f9c8>
+<environment: namespace:utils>
+> library(RUnit)
+> errMsg <- function(err) print(err)
+> load('ex3-tests.rda')
+> iris
+function (..., list = character(), package = NULL, lib.loc = NULL, 
+    verbose = getOption("verbose"), envir = .GlobalEnv) 
+{
+    fileExt <- function(x) {
+        db <- grepl("\\.[^.]+\\.(gz|bz2|xz)$", x)
+        ans <- sub(".*\\.", "", x)
+        ans[db] <- sub(".*\\.([^.]+\\.)(gz|bz2|xz)$", "\\1\\2", 
+            x[db])
+        ans
+    }
+    names <- c(as.character(substitute(list(...))[-1L]), list)
+    if (!is.null(package)) {
+        if (!is.character(package)) 
+            stop("'package' must be a character string or NULL")
+        if (any(package %in% "base")) 
+            warning("datasets have been moved from package 'base' to package 'datasets'")
+        if (any(package %in% "stats")) 
+            warning("datasets have been moved from package 'stats' to package 'datasets'")
+        package[package %in% c("base", "stats")] <- "datasets"
+    }
+    paths <- find.package(package, lib.loc, verbose = verbose)
+    if (is.null(lib.loc)) 
+        paths <- c(path.package(package, TRUE), if (!length(package)) getwd(), 
+            paths)
+    paths <- unique(paths[file.exists(paths)])
+    paths <- paths[file_test("-d", file.path(paths, "data"))]
+    dataExts <- tools:::.make_file_exts("data")
+    if (length(names) == 0L) {
+        db <- matrix(character(), nrow = 0L, ncol = 4L)
+        for (path in paths) {
+            entries <- NULL
+            packageName <- if (file_test("-f", file.path(path, 
+                "DESCRIPTION"))) 
+                basename(path)
+            else "."
+            if (file_test("-f", INDEX <- file.path(path, "Meta", 
+                "data.rds"))) {
+                entries <- readRDS(INDEX)
+            }
+            else {
+                dataDir <- file.path(path, "data")
+                entries <- tools::list_files_with_type(dataDir, 
+                  "data")
+                if (length(entries)) {
+                  entries <- unique(tools::file_path_sans_ext(basename(entries)))
+                  entries <- cbind(entries, "")
+                }
+            }
+            if (NROW(entries)) {
+                if (is.matrix(entries) && ncol(entries) == 2L) 
+                  db <- rbind(db, cbind(packageName, dirname(path), 
+                    entries))
+                else warning(gettextf("data index for package %s is invalid and will be ignored", 
+                  sQuote(packageName)), domain = NA, call. = FALSE)
+            }
+        }
+        colnames(db) <- c("Package", "LibPath", "Item", "Title")
+        footer <- if (missing(package)) 
+            paste0("Use ", sQuote(paste("data(package =", ".packages(all.available = TRUE))")), 
+                "\n", "to list the data sets in all *available* packages.")
+        else NULL
+        y <- list(title = "Data sets", header = NULL, results = db, 
+            footer = footer)
+        class(y) <- "packageIQR"
+        return(y)
+    }
+    paths <- file.path(paths, "data")
+    for (name in names) {
+        found <- FALSE
+        for (p in paths) {
+            if (file_test("-f", file.path(p, "Rdata.rds"))) {
+                rds <- readRDS(file.path(p, "Rdata.rds"))
+                if (name %in% names(rds)) {
+                  found <- TRUE
+                  if (verbose) 
+                    message(sprintf("name=%s:\t found in Rdata.rds", 
+                      name), domain = NA)
+                  thispkg <- sub(".*/([^/]*)/data$", "\\1", p)
+                  thispkg <- sub("_.*$", "", thispkg)
+                  thispkg <- paste0("package:", thispkg)
+                  objs <- rds[[name]]
+                  lazyLoad(file.path(p, "Rdata"), envir = envir, 
+                    filter = function(x) x %in% objs)
+                  break
+                }
+                else if (verbose) 
+                  message(sprintf("name=%s:\t NOT found in names() of Rdata.rds, i.e.,\n\t%s\n", 
+                    name, paste(names(rds), collapse = ",")), 
+                    domain = NA)
+            }
+            if (file_test("-f", file.path(p, "Rdata.zip"))) {
+                warning("zipped data found for package ", sQuote(basename(dirname(p))), 
+                  ".\nThat is defunct, so please re-install the package.", 
+                  domain = NA)
+                if (file_test("-f", fp <- file.path(p, "filelist"))) 
+                  files <- file.path(p, scan(fp, what = "", quiet = TRUE))
+                else {
+                  warning(gettextf("file 'filelist' is missing for directory %s", 
+                    sQuote(p)), domain = NA)
+                  next
+                }
+            }
+            else {
+                files <- list.files(p, full.names = TRUE)
+            }
+            files <- files[grep(name, files, fixed = TRUE)]
+            if (length(files) > 1L) {
+                o <- match(fileExt(files), dataExts, nomatch = 100L)
+                paths0 <- dirname(files)
+                paths0 <- factor(paths0, levels = unique(paths0))
+                files <- files[order(paths0, o)]
+            }
+            if (length(files)) {
+                for (file in files) {
+                  if (verbose) 
+                    message("name=", name, ":\t file= ...", .Platform$file.sep, 
+                      basename(file), "::\t", appendLF = FALSE, 
+                      domain = NA)
+                  ext <- fileExt(file)
+                  if (basename(file) != paste0(name, ".", ext)) 
+                    found <- FALSE
+                  else {
+                    found <- TRUE
+                    zfile <- file
+                    zipname <- file.path(dirname(file), "Rdata.zip")
+                    if (file.exists(zipname)) {
+                      Rdatadir <- tempfile("Rdata")
+                      dir.create(Rdatadir, showWarnings = FALSE)
+                      topic <- basename(file)
+                      rc <- .External(C_unzip, zipname, topic, 
+                        Rdatadir, FALSE, TRUE, FALSE, FALSE)
+                      if (rc == 0L) 
+                        zfile <- file.path(Rdatadir, topic)
+                    }
+                    if (zfile != file) 
+                      on.exit(unlink(zfile))
+                    switch(ext, R = , r = {
+                      library("utils")
+                      sys.source(zfile, chdir = TRUE, envir = envir)
+                    }, RData = , rdata = , rda = load(zfile, 
+                      envir = envir), TXT = , txt = , tab = , 
+                      tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , 
+                      txt.bz2 = , txt.xz = assign(name, read.table(zfile, 
+                        header = TRUE, as.is = FALSE), envir = envir), 
+                      CSV = , csv = , csv.gz = , csv.bz2 = , 
+                      csv.xz = assign(name, read.table(zfile, 
+                        header = TRUE, sep = ";", as.is = FALSE), 
+                        envir = envir), found <- FALSE)
+                  }
+                  if (found) 
+                    break
+                }
+                if (verbose) 
+                  message(if (!found) 
+                    "*NOT* ", "found", domain = NA)
+            }
+            if (found) 
+                break
+        }
+        if (!found) 
+            warning(gettextf("data set %s not found", sQuote(name)), 
+                domain = NA)
+    }
+    invisible(names)
+}
+<bytecode: 0x7fa9db08f9c8>
+<environment: namespace:utils>
+> ls()
+[1] "errMsg"           "iris"             "mean.by.level.t"  "std.level.diff.t"
+> class(iris)
+[1] "function"
+> load('ex3-test.rda')
+Error in readChar(con, 5L, useBytes = TRUE) : cannot open the connection
+In addition: Warning message:
+In readChar(con, 5L, useBytes = TRUE) :
+  cannot open compressed file 'ex3-test.rda', probable reason 'No such file or directory'
+> load('ex3-tests.rda')
+> ls()
+[1] "errMsg"           "iris"             "mean.by.level.t"  "std.level.diff.t"
+> class(iris)
+[1] "function"
+> q()
+Save workspace image? [y/n/c]: n
+
+Process R finished at Wed Jul  2 12:22:21 2014
+
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> > options(STERM='iESS', str.dendrogram.last="'", editor='emacsclient', show.error.locations=TRUE)
+> class(iris)
+[1] "data.frame"
+> iris
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1            5.1         3.5          1.4         0.2     setosa
+2            4.9         3.0          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+5            5.0         3.6          1.4         0.2     setosa
+6            5.4         3.9          1.7         0.4     setosa
+7            4.6         3.4          1.4         0.3     setosa
+8            5.0         3.4          1.5         0.2     setosa
+9            4.4         2.9          1.4         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+11           5.4         3.7          1.5         0.2     setosa
+12           4.8         3.4          1.6         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+14           4.3         3.0          1.1         0.1     setosa
+15           5.8         4.0          1.2         0.2     setosa
+16           5.7         4.4          1.5         0.4     setosa
+17           5.4         3.9          1.3         0.4     setosa
+18           5.1         3.5          1.4         0.3     setosa
+19           5.7         3.8          1.7         0.3     setosa
+20           5.1         3.8          1.5         0.3     setosa
+21           5.4         3.4          1.7         0.2     setosa
+22           5.1         3.7          1.5         0.4     setosa
+23           4.6         3.6          1.0         0.2     setosa
+24           5.1         3.3          1.7         0.5     setosa
+25           4.8         3.4          1.9         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+28           5.2         3.5          1.5         0.2     setosa
+29           5.2         3.4          1.4         0.2     setosa
+30           4.7         3.2          1.6         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+33           5.2         4.1          1.5         0.1     setosa
+34           5.5         4.2          1.4         0.2     setosa
+35           4.9         3.1          1.5         0.2     setosa
+36           5.0         3.2          1.2         0.2     setosa
+37           5.5         3.5          1.3         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+39           4.4         3.0          1.3         0.2     setosa
+40           5.1         3.4          1.5         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+42           4.5         2.3          1.3         0.3     setosa
+43           4.4         3.2          1.3         0.2     setosa
+44           5.0         3.5          1.6         0.6     setosa
+45           5.1         3.8          1.9         0.4     setosa
+46           4.8         3.0          1.4         0.3     setosa
+47           5.1         3.8          1.6         0.2     setosa
+48           4.6         3.2          1.4         0.2     setosa
+49           5.3         3.7          1.5         0.2     setosa
+50           5.0         3.3          1.4         0.2     setosa
+51           7.0         3.2          4.7         1.4 versicolor
+52           6.4         3.2          4.5         1.5 versicolor
+53           6.9         3.1          4.9         1.5 versicolor
+54           5.5         2.3          4.0         1.3 versicolor
+55           6.5         2.8          4.6         1.5 versicolor
+56           5.7         2.8          4.5         1.3 versicolor
+57           6.3         3.3          4.7         1.6 versicolor
+58           4.9         2.4          3.3         1.0 versicolor
+59           6.6         2.9          4.6         1.3 versicolor
+60           5.2         2.7          3.9         1.4 versicolor
+61           5.0         2.0          3.5         1.0 versicolor
+62           5.9         3.0          4.2         1.5 versicolor
+63           6.0         2.2          4.0         1.0 versicolor
+64           6.1         2.9          4.7         1.4 versicolor
+65           5.6         2.9          3.6         1.3 versicolor
+66           6.7         3.1          4.4         1.4 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+68           5.8         2.7          4.1         1.0 versicolor
+69           6.2         2.2          4.5         1.5 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+77           6.8         2.8          4.8         1.4 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+84           6.0         2.7          5.1         1.6 versicolor
+85           5.4         3.0          4.5         1.5 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+99           5.1         2.5          3.0         1.1 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+101          6.3         3.3          6.0         2.5  virginica
+102          5.8         2.7          5.1         1.9  virginica
+103          7.1         3.0          5.9         2.1  virginica
+104          6.3         2.9          5.6         1.8  virginica
+105          6.5         3.0          5.8         2.2  virginica
+106          7.6         3.0          6.6         2.1  virginica
+107          4.9         2.5          4.5         1.7  virginica
+108          7.3         2.9          6.3         1.8  virginica
+109          6.7         2.5          5.8         1.8  virginica
+110          7.2         3.6          6.1         2.5  virginica
+111          6.5         3.2          5.1         2.0  virginica
+112          6.4         2.7          5.3         1.9  virginica
+113          6.8         3.0          5.5         2.1  virginica
+114          5.7         2.5          5.0         2.0  virginica
+115          5.8         2.8          5.1         2.4  virginica
+116          6.4         3.2          5.3         2.3  virginica
+117          6.5         3.0          5.5         1.8  virginica
+118          7.7         3.8          6.7         2.2  virginica
+119          7.7         2.6          6.9         2.3  virginica
+120          6.0         2.2          5.0         1.5  virginica
+121          6.9         3.2          5.7         2.3  virginica
+122          5.6         2.8          4.9         2.0  virginica
+123          7.7         2.8          6.7         2.0  virginica
+124          6.3         2.7          4.9         1.8  virginica
+125          6.7         3.3          5.7         2.1  virginica
+126          7.2         3.2          6.0         1.8  virginica
+127          6.2         2.8          4.8         1.8  virginica
+128          6.1         3.0          4.9         1.8  virginica
+129          6.4         2.8          5.6         2.1  virginica
+130          7.2         3.0          5.8         1.6  virginica
+131          7.4         2.8          6.1         1.9  virginica
+132          7.9         3.8          6.4         2.0  virginica
+133          6.4         2.8          5.6         2.2  virginica
+134          6.3         2.8          5.1         1.5  virginica
+135          6.1         2.6          5.6         1.4  virginica
+136          7.7         3.0          6.1         2.3  virginica
+137          6.3         3.4          5.6         2.4  virginica
+138          6.4         3.1          5.5         1.8  virginica
+139          6.0         3.0          4.8         1.8  virginica
+140          6.9         3.1          5.4         2.1  virginica
+141          6.7         3.1          5.6         2.4  virginica
+142          6.9         3.1          5.1         2.3  virginica
+143          5.8         2.7          5.1         1.9  virginica
+144          6.8         3.2          5.9         2.3  virginica
+145          6.7         3.3          5.7         2.5  virginica
+146          6.7         3.0          5.2         2.3  virginica
+147          6.3         2.5          5.0         1.9  virginica
+148          6.5         3.0          5.2         2.0  virginica
+149          6.2         3.4          5.4         2.3  virginica
+150          5.9         3.0          5.1         1.8  virginica
+> library(RUnit)
+> errMsg <- function(err) print(err)
+> load('ex3-tests.rda')
+> iris
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1            5.1         3.5          1.4         0.2     setosa
+2            4.9         3.0          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+5            5.0         3.6          1.4         0.2     setosa
+6            5.4         3.9          1.7         0.4     setosa
+7            4.6         3.4          1.4         0.3     setosa
+8            5.0         3.4          1.5         0.2     setosa
+9            4.4         2.9          1.4         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+11           5.4         3.7          1.5         0.2     setosa
+12           4.8         3.4          1.6         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+14           4.3         3.0          1.1         0.1     setosa
+15           5.8         4.0          1.2         0.2     setosa
+16           5.7         4.4          1.5         0.4     setosa
+17           5.4         3.9          1.3         0.4     setosa
+18           5.1         3.5          1.4         0.3     setosa
+19           5.7         3.8          1.7         0.3     setosa
+20           5.1         3.8          1.5         0.3     setosa
+21           5.4         3.4          1.7         0.2     setosa
+22           5.1         3.7          1.5         0.4     setosa
+23           4.6         3.6          1.0         0.2     setosa
+24           5.1         3.3          1.7         0.5     setosa
+25           4.8         3.4          1.9         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+28           5.2         3.5          1.5         0.2     setosa
+29           5.2         3.4          1.4         0.2     setosa
+30           4.7         3.2          1.6         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+33           5.2         4.1          1.5         0.1     setosa
+34           5.5         4.2          1.4         0.2     setosa
+35           4.9         3.1          1.5         0.2     setosa
+36           5.0         3.2          1.2         0.2     setosa
+37           5.5         3.5          1.3         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+39           4.4         3.0          1.3         0.2     setosa
+40           5.1         3.4          1.5         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+42           4.5         2.3          1.3         0.3     setosa
+43           4.4         3.2          1.3         0.2     setosa
+44           5.0         3.5          1.6         0.6     setosa
+45           5.1         3.8          1.9         0.4     setosa
+46           4.8         3.0          1.4         0.3     setosa
+47           5.1         3.8          1.6         0.2     setosa
+48           4.6         3.2          1.4         0.2     setosa
+49           5.3         3.7          1.5         0.2     setosa
+50           5.0         3.3          1.4         0.2     setosa
+51           7.0         3.2          4.7         1.4 versicolor
+52           6.4         3.2          4.5         1.5 versicolor
+53           6.9         3.1          4.9         1.5 versicolor
+54           5.5         2.3          4.0         1.3 versicolor
+55           6.5         2.8          4.6         1.5 versicolor
+56           5.7         2.8          4.5         1.3 versicolor
+57           6.3         3.3          4.7         1.6 versicolor
+58           4.9         2.4          3.3         1.0 versicolor
+59           6.6         2.9          4.6         1.3 versicolor
+60           5.2         2.7          3.9         1.4 versicolor
+61           5.0         2.0          3.5         1.0 versicolor
+62           5.9         3.0          4.2         1.5 versicolor
+63           6.0         2.2          4.0         1.0 versicolor
+64           6.1         2.9          4.7         1.4 versicolor
+65           5.6         2.9          3.6         1.3 versicolor
+66           6.7         3.1          4.4         1.4 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+68           5.8         2.7          4.1         1.0 versicolor
+69           6.2         2.2          4.5         1.5 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+77           6.8         2.8          4.8         1.4 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+84           6.0         2.7          5.1         1.6 versicolor
+85           5.4         3.0          4.5         1.5 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+99           5.1         2.5          3.0         1.1 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+101          6.3         3.3          6.0         2.5  virginica
+102          5.8         2.7          5.1         1.9  virginica
+103          7.1         3.0          5.9         2.1  virginica
+104          6.3         2.9          5.6         1.8  virginica
+105          6.5         3.0          5.8         2.2  virginica
+106          7.6         3.0          6.6         2.1  virginica
+107          4.9         2.5          4.5         1.7  virginica
+108          7.3         2.9          6.3         1.8  virginica
+109          6.7         2.5          5.8         1.8  virginica
+110          7.2         3.6          6.1         2.5  virginica
+111          6.5         3.2          5.1         2.0  virginica
+112          6.4         2.7          5.3         1.9  virginica
+113          6.8         3.0          5.5         2.1  virginica
+114          5.7         2.5          5.0         2.0  virginica
+115          5.8         2.8          5.1         2.4  virginica
+116          6.4         3.2          5.3         2.3  virginica
+117          6.5         3.0          5.5         1.8  virginica
+118          7.7         3.8          6.7         2.2  virginica
+119          7.7         2.6          6.9         2.3  virginica
+120          6.0         2.2          5.0         1.5  virginica
+121          6.9         3.2          5.7         2.3  virginica
+122          5.6         2.8          4.9         2.0  virginica
+123          7.7         2.8          6.7         2.0  virginica
+124          6.3         2.7          4.9         1.8  virginica
+125          6.7         3.3          5.7         2.1  virginica
+126          7.2         3.2          6.0         1.8  virginica
+127          6.2         2.8          4.8         1.8  virginica
+128          6.1         3.0          4.9         1.8  virginica
+129          6.4         2.8          5.6         2.1  virginica
+130          7.2         3.0          5.8         1.6  virginica
+131          7.4         2.8          6.1         1.9  virginica
+132          7.9         3.8          6.4         2.0  virginica
+133          6.4         2.8          5.6         2.2  virginica
+134          6.3         2.8          5.1         1.5  virginica
+135          6.1         2.6          5.6         1.4  virginica
+136          7.7         3.0          6.1         2.3  virginica
+137          6.3         3.4          5.6         2.4  virginica
+138          6.4         3.1          5.5         1.8  virginica
+139          6.0         3.0          4.8         1.8  virginica
+140          6.9         3.1          5.4         2.1  virginica
+141          6.7         3.1          5.6         2.4  virginica
+142          6.9         3.1          5.1         2.3  virginica
+143          5.8         2.7          5.1         1.9  virginica
+144          6.8         3.2          5.9         2.3  virginica
+145          6.7         3.3          5.7         2.5  virginica
+146          6.7         3.0          5.2         2.3  virginica
+147          6.3         2.5          5.0         1.9  virginica
+148          6.5         3.0          5.2         2.0  virginica
+149          6.2         3.4          5.4         2.3  virginica
+150          5.9         3.0          5.1         1.8  virginica
+> data = iris
+> data
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1            5.1         3.5          1.4         0.2     setosa
+2            4.9         3.0          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+5            5.0         3.6          1.4         0.2     setosa
+6            5.4         3.9          1.7         0.4     setosa
+7            4.6         3.4          1.4         0.3     setosa
+8            5.0         3.4          1.5         0.2     setosa
+9            4.4         2.9          1.4         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+11           5.4         3.7          1.5         0.2     setosa
+12           4.8         3.4          1.6         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+14           4.3         3.0          1.1         0.1     setosa
+15           5.8         4.0          1.2         0.2     setosa
+16           5.7         4.4          1.5         0.4     setosa
+17           5.4         3.9          1.3         0.4     setosa
+18           5.1         3.5          1.4         0.3     setosa
+19           5.7         3.8          1.7         0.3     setosa
+20           5.1         3.8          1.5         0.3     setosa
+21           5.4         3.4          1.7         0.2     setosa
+22           5.1         3.7          1.5         0.4     setosa
+23           4.6         3.6          1.0         0.2     setosa
+24           5.1         3.3          1.7         0.5     setosa
+25           4.8         3.4          1.9         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+28           5.2         3.5          1.5         0.2     setosa
+29           5.2         3.4          1.4         0.2     setosa
+30           4.7         3.2          1.6         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+33           5.2         4.1          1.5         0.1     setosa
+34           5.5         4.2          1.4         0.2     setosa
+35           4.9         3.1          1.5         0.2     setosa
+36           5.0         3.2          1.2         0.2     setosa
+37           5.5         3.5          1.3         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+39           4.4         3.0          1.3         0.2     setosa
+40           5.1         3.4          1.5         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+42           4.5         2.3          1.3         0.3     setosa
+43           4.4         3.2          1.3         0.2     setosa
+44           5.0         3.5          1.6         0.6     setosa
+45           5.1         3.8          1.9         0.4     setosa
+46           4.8         3.0          1.4         0.3     setosa
+47           5.1         3.8          1.6         0.2     setosa
+48           4.6         3.2          1.4         0.2     setosa
+49           5.3         3.7          1.5         0.2     setosa
+50           5.0         3.3          1.4         0.2     setosa
+51           7.0         3.2          4.7         1.4 versicolor
+52           6.4         3.2          4.5         1.5 versicolor
+53           6.9         3.1          4.9         1.5 versicolor
+54           5.5         2.3          4.0         1.3 versicolor
+55           6.5         2.8          4.6         1.5 versicolor
+56           5.7         2.8          4.5         1.3 versicolor
+57           6.3         3.3          4.7         1.6 versicolor
+58           4.9         2.4          3.3         1.0 versicolor
+59           6.6         2.9          4.6         1.3 versicolor
+60           5.2         2.7          3.9         1.4 versicolor
+61           5.0         2.0          3.5         1.0 versicolor
+62           5.9         3.0          4.2         1.5 versicolor
+63           6.0         2.2          4.0         1.0 versicolor
+64           6.1         2.9          4.7         1.4 versicolor
+65           5.6         2.9          3.6         1.3 versicolor
+66           6.7         3.1          4.4         1.4 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+68           5.8         2.7          4.1         1.0 versicolor
+69           6.2         2.2          4.5         1.5 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+77           6.8         2.8          4.8         1.4 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+84           6.0         2.7          5.1         1.6 versicolor
+85           5.4         3.0          4.5         1.5 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+99           5.1         2.5          3.0         1.1 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+101          6.3         3.3          6.0         2.5  virginica
+102          5.8         2.7          5.1         1.9  virginica
+103          7.1         3.0          5.9         2.1  virginica
+104          6.3         2.9          5.6         1.8  virginica
+105          6.5         3.0          5.8         2.2  virginica
+106          7.6         3.0          6.6         2.1  virginica
+107          4.9         2.5          4.5         1.7  virginica
+108          7.3         2.9          6.3         1.8  virginica
+109          6.7         2.5          5.8         1.8  virginica
+110          7.2         3.6          6.1         2.5  virginica
+111          6.5         3.2          5.1         2.0  virginica
+112          6.4         2.7          5.3         1.9  virginica
+113          6.8         3.0          5.5         2.1  virginica
+114          5.7         2.5          5.0         2.0  virginica
+115          5.8         2.8          5.1         2.4  virginica
+116          6.4         3.2          5.3         2.3  virginica
+117          6.5         3.0          5.5         1.8  virginica
+118          7.7         3.8          6.7         2.2  virginica
+119          7.7         2.6          6.9         2.3  virginica
+120          6.0         2.2          5.0         1.5  virginica
+121          6.9         3.2          5.7         2.3  virginica
+122          5.6         2.8          4.9         2.0  virginica
+123          7.7         2.8          6.7         2.0  virginica
+124          6.3         2.7          4.9         1.8  virginica
+125          6.7         3.3          5.7         2.1  virginica
+126          7.2         3.2          6.0         1.8  virginica
+127          6.2         2.8          4.8         1.8  virginica
+128          6.1         3.0          4.9         1.8  virginica
+129          6.4         2.8          5.6         2.1  virginica
+130          7.2         3.0          5.8         1.6  virginica
+131          7.4         2.8          6.1         1.9  virginica
+132          7.9         3.8          6.4         2.0  virginica
+133          6.4         2.8          5.6         2.2  virginica
+134          6.3         2.8          5.1         1.5  virginica
+135          6.1         2.6          5.6         1.4  virginica
+136          7.7         3.0          6.1         2.3  virginica
+137          6.3         3.4          5.6         2.4  virginica
+138          6.4         3.1          5.5         1.8  virginica
+139          6.0         3.0          4.8         1.8  virginica
+140          6.9         3.1          5.4         2.1  virginica
+141          6.7         3.1          5.6         2.4  virginica
+142          6.9         3.1          5.1         2.3  virginica
+143          5.8         2.7          5.1         1.9  virginica
+144          6.8         3.2          5.9         2.3  virginica
+145          6.7         3.3          5.7         2.5  virginica
+146          6.7         3.0          5.2         2.3  virginica
+147          6.3         2.5          5.0         1.9  virginica
+148          6.5         3.0          5.2         2.0  virginica
+149          6.2         3.4          5.4         2.3  virginica
+150          5.9         3.0          5.1         1.8  virginica
+> apply(data, 2, type)
+Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species 
+ "character"  "character"  "character"  "character"  "character" 
+> apply(data, 2, typeof)
+Error in match.fun(FUN) : object 'type' not found
+> type(2)
+Error: could not find function "type"
+> typeof(2)
+[1] "double"
+> apply(data, 2, as.num)
+Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species 
+ "character"  "character"  "character"  "character"  "character" 
+> apply(data, 2, as, class="numeric")
+Error in match.fun(FUN) : object 'as.num' not found
+> ?as
+> ?as
+> apply(data, 2, as.numeric)
+Error in FUN(newX[, i], ...) : unused argument (class = "numeric")
+> apply(data, 2, as.numeric)
+       Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  [1,]          5.1         3.5          1.4         0.2      NA
+  [2,]          4.9         3.0          1.4         0.2      NA
+  [3,]          4.7         3.2          1.3         0.2      NA
+  [4,]          4.6         3.1          1.5         0.2      NA
+  [5,]          5.0         3.6          1.4         0.2      NA
+  [6,]          5.4         3.9          1.7         0.4      NA
+  [7,]          4.6         3.4          1.4         0.3      NA
+  [8,]          5.0         3.4          1.5         0.2      NA
+  [9,]          4.4         2.9          1.4         0.2      NA
+ [10,]          4.9         3.1          1.5         0.1      NA
+ [11,]          5.4         3.7          1.5         0.2      NA
+ [12,]          4.8         3.4          1.6         0.2      NA
+ [13,]          4.8         3.0          1.4         0.1      NA
+ [14,]          4.3         3.0          1.1         0.1      NA
+ [15,]          5.8         4.0          1.2         0.2      NA
+ [16,]          5.7         4.4          1.5         0.4      NA
+ [17,]          5.4         3.9          1.3         0.4      NA
+ [18,]          5.1         3.5          1.4         0.3      NA
+ [19,]          5.7         3.8          1.7         0.3      NA
+ [20,]          5.1         3.8          1.5         0.3      NA
+ [21,]          5.4         3.4          1.7         0.2      NA
+ [22,]          5.1         3.7          1.5         0.4      NA
+ [23,]          4.6         3.6          1.0         0.2      NA
+ [24,]          5.1         3.3          1.7         0.5      NA
+ [25,]          4.8         3.4          1.9         0.2      NA
+ [26,]          5.0         3.0          1.6         0.2      NA
+ [27,]          5.0         3.4          1.6         0.4      NA
+ [28,]          5.2         3.5          1.5         0.2      NA
+ [29,]          5.2         3.4          1.4         0.2      NA
+ [30,]          4.7         3.2          1.6         0.2      NA
+ [31,]          4.8         3.1          1.6         0.2      NA
+ [32,]          5.4         3.4          1.5         0.4      NA
+ [33,]          5.2         4.1          1.5         0.1      NA
+ [34,]          5.5         4.2          1.4         0.2      NA
+ [35,]          4.9         3.1          1.5         0.2      NA
+ [36,]          5.0         3.2          1.2         0.2      NA
+ [37,]          5.5         3.5          1.3         0.2      NA
+ [38,]          4.9         3.6          1.4         0.1      NA
+ [39,]          4.4         3.0          1.3         0.2      NA
+ [40,]          5.1         3.4          1.5         0.2      NA
+ [41,]          5.0         3.5          1.3         0.3      NA
+ [42,]          4.5         2.3          1.3         0.3      NA
+ [43,]          4.4         3.2          1.3         0.2      NA
+ [44,]          5.0         3.5          1.6         0.6      NA
+ [45,]          5.1         3.8          1.9         0.4      NA
+ [46,]          4.8         3.0          1.4         0.3      NA
+ [47,]          5.1         3.8          1.6         0.2      NA
+ [48,]          4.6         3.2          1.4         0.2      NA
+ [49,]          5.3         3.7          1.5         0.2      NA
+ [50,]          5.0         3.3          1.4         0.2      NA
+ [51,]          7.0         3.2          4.7         1.4      NA
+ [52,]          6.4         3.2          4.5         1.5      NA
+ [53,]          6.9         3.1          4.9         1.5      NA
+ [54,]          5.5         2.3          4.0         1.3      NA
+ [55,]          6.5         2.8          4.6         1.5      NA
+ [56,]          5.7         2.8          4.5         1.3      NA
+ [57,]          6.3         3.3          4.7         1.6      NA
+ [58,]          4.9         2.4          3.3         1.0      NA
+ [59,]          6.6         2.9          4.6         1.3      NA
+ [60,]          5.2         2.7          3.9         1.4      NA
+ [61,]          5.0         2.0          3.5         1.0      NA
+ [62,]          5.9         3.0          4.2         1.5      NA
+ [63,]          6.0         2.2          4.0         1.0      NA
+ [64,]          6.1         2.9          4.7         1.4      NA
+ [65,]          5.6         2.9          3.6         1.3      NA
+ [66,]          6.7         3.1          4.4         1.4      NA
+ [67,]          5.6         3.0          4.5         1.5      NA
+ [68,]          5.8         2.7          4.1         1.0      NA
+ [69,]          6.2         2.2          4.5         1.5      NA
+ [70,]          5.6         2.5          3.9         1.1      NA
+ [71,]          5.9         3.2          4.8         1.8      NA
+ [72,]          6.1         2.8          4.0         1.3      NA
+ [73,]          6.3         2.5          4.9         1.5      NA
+ [74,]          6.1         2.8          4.7         1.2      NA
+ [75,]          6.4         2.9          4.3         1.3      NA
+ [76,]          6.6         3.0          4.4         1.4      NA
+ [77,]          6.8         2.8          4.8         1.4      NA
+ [78,]          6.7         3.0          5.0         1.7      NA
+ [79,]          6.0         2.9          4.5         1.5      NA
+ [80,]          5.7         2.6          3.5         1.0      NA
+ [81,]          5.5         2.4          3.8         1.1      NA
+ [82,]          5.5         2.4          3.7         1.0      NA
+ [83,]          5.8         2.7          3.9         1.2      NA
+ [84,]          6.0         2.7          5.1         1.6      NA
+ [85,]          5.4         3.0          4.5         1.5      NA
+ [86,]          6.0         3.4          4.5         1.6      NA
+ [87,]          6.7         3.1          4.7         1.5      NA
+ [88,]          6.3         2.3          4.4         1.3      NA
+ [89,]          5.6         3.0          4.1         1.3      NA
+ [90,]          5.5         2.5          4.0         1.3      NA
+ [91,]          5.5         2.6          4.4         1.2      NA
+ [92,]          6.1         3.0          4.6         1.4      NA
+ [93,]          5.8         2.6          4.0         1.2      NA
+ [94,]          5.0         2.3          3.3         1.0      NA
+ [95,]          5.6         2.7          4.2         1.3      NA
+ [96,]          5.7         3.0          4.2         1.2      NA
+ [97,]          5.7         2.9          4.2         1.3      NA
+ [98,]          6.2         2.9          4.3         1.3      NA
+ [99,]          5.1         2.5          3.0         1.1      NA
+[100,]          5.7         2.8          4.1         1.3      NA
+[101,]          6.3         3.3          6.0         2.5      NA
+[102,]          5.8         2.7          5.1         1.9      NA
+[103,]          7.1         3.0          5.9         2.1      NA
+[104,]          6.3         2.9          5.6         1.8      NA
+[105,]          6.5         3.0          5.8         2.2      NA
+[106,]          7.6         3.0          6.6         2.1      NA
+[107,]          4.9         2.5          4.5         1.7      NA
+[108,]          7.3         2.9          6.3         1.8      NA
+[109,]          6.7         2.5          5.8         1.8      NA
+[110,]          7.2         3.6          6.1         2.5      NA
+[111,]          6.5         3.2          5.1         2.0      NA
+[112,]          6.4         2.7          5.3         1.9      NA
+[113,]          6.8         3.0          5.5         2.1      NA
+[114,]          5.7         2.5          5.0         2.0      NA
+[115,]          5.8         2.8          5.1         2.4      NA
+[116,]          6.4         3.2          5.3         2.3      NA
+[117,]          6.5         3.0          5.5         1.8      NA
+[118,]          7.7         3.8          6.7         2.2      NA
+[119,]          7.7         2.6          6.9         2.3      NA
+[120,]          6.0         2.2          5.0         1.5      NA
+[121,]          6.9         3.2          5.7         2.3      NA
+[122,]          5.6         2.8          4.9         2.0      NA
+[123,]          7.7         2.8          6.7         2.0      NA
+[124,]          6.3         2.7          4.9         1.8      NA
+[125,]          6.7         3.3          5.7         2.1      NA
+[126,]          7.2         3.2          6.0         1.8      NA
+[127,]          6.2         2.8          4.8         1.8      NA
+[128,]          6.1         3.0          4.9         1.8      NA
+[129,]          6.4         2.8          5.6         2.1      NA
+[130,]          7.2         3.0          5.8         1.6      NA
+[131,]          7.4         2.8          6.1         1.9      NA
+[132,]          7.9         3.8          6.4         2.0      NA
+[133,]          6.4         2.8          5.6         2.2      NA
+[134,]          6.3         2.8          5.1         1.5      NA
+[135,]          6.1         2.6          5.6         1.4      NA
+[136,]          7.7         3.0          6.1         2.3      NA
+[137,]          6.3         3.4          5.6         2.4      NA
+[138,]          6.4         3.1          5.5         1.8      NA
+[139,]          6.0         3.0          4.8         1.8      NA
+[140,]          6.9         3.1          5.4         2.1      NA
+[141,]          6.7         3.1          5.6         2.4      NA
+[142,]          6.9         3.1          5.1         2.3      NA
+[143,]          5.8         2.7          5.1         1.9      NA
+[144,]          6.8         3.2          5.9         2.3      NA
+[145,]          6.7         3.3          5.7         2.5      NA
+[146,]          6.7         3.0          5.2         2.3      NA
+[147,]          6.3         2.5          5.0         1.9      NA
+[148,]          6.5         3.0          5.2         2.0      NA
+[149,]          6.2         3.4          5.4         2.3      NA
+[150,]          5.9         3.0          5.1         1.8      NA
+Warning message:
+In apply(data, 2, as.numeric) : NAs introduced by coercion
+> sapply(data, as.numeric)
+       Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  [1,]          5.1         3.5          1.4         0.2       1
+  [2,]          4.9         3.0          1.4         0.2       1
+  [3,]          4.7         3.2          1.3         0.2       1
+  [4,]          4.6         3.1          1.5         0.2       1
+  [5,]          5.0         3.6          1.4         0.2       1
+  [6,]          5.4         3.9          1.7         0.4       1
+  [7,]          4.6         3.4          1.4         0.3       1
+  [8,]          5.0         3.4          1.5         0.2       1
+  [9,]          4.4         2.9          1.4         0.2       1
+ [10,]          4.9         3.1          1.5         0.1       1
+ [11,]          5.4         3.7          1.5         0.2       1
+ [12,]          4.8         3.4          1.6         0.2       1
+ [13,]          4.8         3.0          1.4         0.1       1
+ [14,]          4.3         3.0          1.1         0.1       1
+ [15,]          5.8         4.0          1.2         0.2       1
+ [16,]          5.7         4.4          1.5         0.4       1
+ [17,]          5.4         3.9          1.3         0.4       1
+ [18,]          5.1         3.5          1.4         0.3       1
+ [19,]          5.7         3.8          1.7         0.3       1
+ [20,]          5.1         3.8          1.5         0.3       1
+ [21,]          5.4         3.4          1.7         0.2       1
+ [22,]          5.1         3.7          1.5         0.4       1
+ [23,]          4.6         3.6          1.0         0.2       1
+ [24,]          5.1         3.3          1.7         0.5       1
+ [25,]          4.8         3.4          1.9         0.2       1
+ [26,]          5.0         3.0          1.6         0.2       1
+ [27,]          5.0         3.4          1.6         0.4       1
+ [28,]          5.2         3.5          1.5         0.2       1
+ [29,]          5.2         3.4          1.4         0.2       1
+ [30,]          4.7         3.2          1.6         0.2       1
+ [31,]          4.8         3.1          1.6         0.2       1
+ [32,]          5.4         3.4          1.5         0.4       1
+ [33,]          5.2         4.1          1.5         0.1       1
+ [34,]          5.5         4.2          1.4         0.2       1
+ [35,]          4.9         3.1          1.5         0.2       1
+ [36,]          5.0         3.2          1.2         0.2       1
+ [37,]          5.5         3.5          1.3         0.2       1
+ [38,]          4.9         3.6          1.4         0.1       1
+ [39,]          4.4         3.0          1.3         0.2       1
+ [40,]          5.1         3.4          1.5         0.2       1
+ [41,]          5.0         3.5          1.3         0.3       1
+ [42,]          4.5         2.3          1.3         0.3       1
+ [43,]          4.4         3.2          1.3         0.2       1
+ [44,]          5.0         3.5          1.6         0.6       1
+ [45,]          5.1         3.8          1.9         0.4       1
+ [46,]          4.8         3.0          1.4         0.3       1
+ [47,]          5.1         3.8          1.6         0.2       1
+ [48,]          4.6         3.2          1.4         0.2       1
+ [49,]          5.3         3.7          1.5         0.2       1
+ [50,]          5.0         3.3          1.4         0.2       1
+ [51,]          7.0         3.2          4.7         1.4       2
+ [52,]          6.4         3.2          4.5         1.5       2
+ [53,]          6.9         3.1          4.9         1.5       2
+ [54,]          5.5         2.3          4.0         1.3       2
+ [55,]          6.5         2.8          4.6         1.5       2
+ [56,]          5.7         2.8          4.5         1.3       2
+ [57,]          6.3         3.3          4.7         1.6       2
+ [58,]          4.9         2.4          3.3         1.0       2
+ [59,]          6.6         2.9          4.6         1.3       2
+ [60,]          5.2         2.7          3.9         1.4       2
+ [61,]          5.0         2.0          3.5         1.0       2
+ [62,]          5.9         3.0          4.2         1.5       2
+ [63,]          6.0         2.2          4.0         1.0       2
+ [64,]          6.1         2.9          4.7         1.4       2
+ [65,]          5.6         2.9          3.6         1.3       2
+ [66,]          6.7         3.1          4.4         1.4       2
+ [67,]          5.6         3.0          4.5         1.5       2
+ [68,]          5.8         2.7          4.1         1.0       2
+ [69,]          6.2         2.2          4.5         1.5       2
+ [70,]          5.6         2.5          3.9         1.1       2
+ [71,]          5.9         3.2          4.8         1.8       2
+ [72,]          6.1         2.8          4.0         1.3       2
+ [73,]          6.3         2.5          4.9         1.5       2
+ [74,]          6.1         2.8          4.7         1.2       2
+ [75,]          6.4         2.9          4.3         1.3       2
+ [76,]          6.6         3.0          4.4         1.4       2
+ [77,]          6.8         2.8          4.8         1.4       2
+ [78,]          6.7         3.0          5.0         1.7       2
+ [79,]          6.0         2.9          4.5         1.5       2
+ [80,]          5.7         2.6          3.5         1.0       2
+ [81,]          5.5         2.4          3.8         1.1       2
+ [82,]          5.5         2.4          3.7         1.0       2
+ [83,]          5.8         2.7          3.9         1.2       2
+ [84,]          6.0         2.7          5.1         1.6       2
+ [85,]          5.4         3.0          4.5         1.5       2
+ [86,]          6.0         3.4          4.5         1.6       2
+ [87,]          6.7         3.1          4.7         1.5       2
+ [88,]          6.3         2.3          4.4         1.3       2
+ [89,]          5.6         3.0          4.1         1.3       2
+ [90,]          5.5         2.5          4.0         1.3       2
+ [91,]          5.5         2.6          4.4         1.2       2
+ [92,]          6.1         3.0          4.6         1.4       2
+ [93,]          5.8         2.6          4.0         1.2       2
+ [94,]          5.0         2.3          3.3         1.0       2
+ [95,]          5.6         2.7          4.2         1.3       2
+ [96,]          5.7         3.0          4.2         1.2       2
+ [97,]          5.7         2.9          4.2         1.3       2
+ [98,]          6.2         2.9          4.3         1.3       2
+ [99,]          5.1         2.5          3.0         1.1       2
+[100,]          5.7         2.8          4.1         1.3       2
+[101,]          6.3         3.3          6.0         2.5       3
+[102,]          5.8         2.7          5.1         1.9       3
+[103,]          7.1         3.0          5.9         2.1       3
+[104,]          6.3         2.9          5.6         1.8       3
+[105,]          6.5         3.0          5.8         2.2       3
+[106,]          7.6         3.0          6.6         2.1       3
+[107,]          4.9         2.5          4.5         1.7       3
+[108,]          7.3         2.9          6.3         1.8       3
+[109,]          6.7         2.5          5.8         1.8       3
+[110,]          7.2         3.6          6.1         2.5       3
+[111,]          6.5         3.2          5.1         2.0       3
+[112,]          6.4         2.7          5.3         1.9       3
+[113,]          6.8         3.0          5.5         2.1       3
+[114,]          5.7         2.5          5.0         2.0       3
+[115,]          5.8         2.8          5.1         2.4       3
+[116,]          6.4         3.2          5.3         2.3       3
+[117,]          6.5         3.0          5.5         1.8       3
+[118,]          7.7         3.8          6.7         2.2       3
+[119,]          7.7         2.6          6.9         2.3       3
+[120,]          6.0         2.2          5.0         1.5       3
+[121,]          6.9         3.2          5.7         2.3       3
+[122,]          5.6         2.8          4.9         2.0       3
+[123,]          7.7         2.8          6.7         2.0       3
+[124,]          6.3         2.7          4.9         1.8       3
+[125,]          6.7         3.3          5.7         2.1       3
+[126,]          7.2         3.2          6.0         1.8       3
+[127,]          6.2         2.8          4.8         1.8       3
+[128,]          6.1         3.0          4.9         1.8       3
+[129,]          6.4         2.8          5.6         2.1       3
+[130,]          7.2         3.0          5.8         1.6       3
+[131,]          7.4         2.8          6.1         1.9       3
+[132,]          7.9         3.8          6.4         2.0       3
+[133,]          6.4         2.8          5.6         2.2       3
+[134,]          6.3         2.8          5.1         1.5       3
+[135,]          6.1         2.6          5.6         1.4       3
+[136,]          7.7         3.0          6.1         2.3       3
+[137,]          6.3         3.4          5.6         2.4       3
+[138,]          6.4         3.1          5.5         1.8       3
+[139,]          6.0         3.0          4.8         1.8       3
+[140,]          6.9         3.1          5.4         2.1       3
+[141,]          6.7         3.1          5.6         2.4       3
+[142,]          6.9         3.1          5.1         2.3       3
+[143,]          5.8         2.7          5.1         1.9       3
+[144,]          6.8         3.2          5.9         2.3       3
+[145,]          6.7         3.3          5.7         2.5       3
+[146,]          6.7         3.0          5.2         2.3       3
+[147,]          6.3         2.5          5.0         1.9       3
+[148,]          6.5         3.0          5.2         2.0       3
+[149,]          6.2         3.4          5.4         2.3       3
+[150,]          5.9         3.0          5.1         1.8       3
+> data
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1            5.1         3.5          1.4         0.2     setosa
+2            4.9         3.0          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+5            5.0         3.6          1.4         0.2     setosa
+6            5.4         3.9          1.7         0.4     setosa
+7            4.6         3.4          1.4         0.3     setosa
+8            5.0         3.4          1.5         0.2     setosa
+9            4.4         2.9          1.4         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+11           5.4         3.7          1.5         0.2     setosa
+12           4.8         3.4          1.6         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+14           4.3         3.0          1.1         0.1     setosa
+15           5.8         4.0          1.2         0.2     setosa
+16           5.7         4.4          1.5         0.4     setosa
+17           5.4         3.9          1.3         0.4     setosa
+18           5.1         3.5          1.4         0.3     setosa
+19           5.7         3.8          1.7         0.3     setosa
+20           5.1         3.8          1.5         0.3     setosa
+21           5.4         3.4          1.7         0.2     setosa
+22           5.1         3.7          1.5         0.4     setosa
+23           4.6         3.6          1.0         0.2     setosa
+24           5.1         3.3          1.7         0.5     setosa
+25           4.8         3.4          1.9         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+28           5.2         3.5          1.5         0.2     setosa
+29           5.2         3.4          1.4         0.2     setosa
+30           4.7         3.2          1.6         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+33           5.2         4.1          1.5         0.1     setosa
+34           5.5         4.2          1.4         0.2     setosa
+35           4.9         3.1          1.5         0.2     setosa
+36           5.0         3.2          1.2         0.2     setosa
+37           5.5         3.5          1.3         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+39           4.4         3.0          1.3         0.2     setosa
+40           5.1         3.4          1.5         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+42           4.5         2.3          1.3         0.3     setosa
+43           4.4         3.2          1.3         0.2     setosa
+44           5.0         3.5          1.6         0.6     setosa
+45           5.1         3.8          1.9         0.4     setosa
+46           4.8         3.0          1.4         0.3     setosa
+47           5.1         3.8          1.6         0.2     setosa
+48           4.6         3.2          1.4         0.2     setosa
+49           5.3         3.7          1.5         0.2     setosa
+50           5.0         3.3          1.4         0.2     setosa
+51           7.0         3.2          4.7         1.4 versicolor
+52           6.4         3.2          4.5         1.5 versicolor
+53           6.9         3.1          4.9         1.5 versicolor
+54           5.5         2.3          4.0         1.3 versicolor
+55           6.5         2.8          4.6         1.5 versicolor
+56           5.7         2.8          4.5         1.3 versicolor
+57           6.3         3.3          4.7         1.6 versicolor
+58           4.9         2.4          3.3         1.0 versicolor
+59           6.6         2.9          4.6         1.3 versicolor
+60           5.2         2.7          3.9         1.4 versicolor
+61           5.0         2.0          3.5         1.0 versicolor
+62           5.9         3.0          4.2         1.5 versicolor
+63           6.0         2.2          4.0         1.0 versicolor
+64           6.1         2.9          4.7         1.4 versicolor
+65           5.6         2.9          3.6         1.3 versicolor
+66           6.7         3.1          4.4         1.4 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+68           5.8         2.7          4.1         1.0 versicolor
+69           6.2         2.2          4.5         1.5 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+77           6.8         2.8          4.8         1.4 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+84           6.0         2.7          5.1         1.6 versicolor
+85           5.4         3.0          4.5         1.5 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+99           5.1         2.5          3.0         1.1 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+101          6.3         3.3          6.0         2.5  virginica
+102          5.8         2.7          5.1         1.9  virginica
+103          7.1         3.0          5.9         2.1  virginica
+104          6.3         2.9          5.6         1.8  virginica
+105          6.5         3.0          5.8         2.2  virginica
+106          7.6         3.0          6.6         2.1  virginica
+107          4.9         2.5          4.5         1.7  virginica
+108          7.3         2.9          6.3         1.8  virginica
+109          6.7         2.5          5.8         1.8  virginica
+110          7.2         3.6          6.1         2.5  virginica
+111          6.5         3.2          5.1         2.0  virginica
+112          6.4         2.7          5.3         1.9  virginica
+113          6.8         3.0          5.5         2.1  virginica
+114          5.7         2.5          5.0         2.0  virginica
+115          5.8         2.8          5.1         2.4  virginica
+116          6.4         3.2          5.3         2.3  virginica
+117          6.5         3.0          5.5         1.8  virginica
+118          7.7         3.8          6.7         2.2  virginica
+119          7.7         2.6          6.9         2.3  virginica
+120          6.0         2.2          5.0         1.5  virginica
+121          6.9         3.2          5.7         2.3  virginica
+122          5.6         2.8          4.9         2.0  virginica
+123          7.7         2.8          6.7         2.0  virginica
+124          6.3         2.7          4.9         1.8  virginica
+125          6.7         3.3          5.7         2.1  virginica
+126          7.2         3.2          6.0         1.8  virginica
+127          6.2         2.8          4.8         1.8  virginica
+128          6.1         3.0          4.9         1.8  virginica
+129          6.4         2.8          5.6         2.1  virginica
+130          7.2         3.0          5.8         1.6  virginica
+131          7.4         2.8          6.1         1.9  virginica
+132          7.9         3.8          6.4         2.0  virginica
+133          6.4         2.8          5.6         2.2  virginica
+134          6.3         2.8          5.1         1.5  virginica
+135          6.1         2.6          5.6         1.4  virginica
+136          7.7         3.0          6.1         2.3  virginica
+137          6.3         3.4          5.6         2.4  virginica
+138          6.4         3.1          5.5         1.8  virginica
+139          6.0         3.0          4.8         1.8  virginica
+140          6.9         3.1          5.4         2.1  virginica
+141          6.7         3.1          5.6         2.4  virginica
+142          6.9         3.1          5.1         2.3  virginica
+143          5.8         2.7          5.1         1.9  virginica
+144          6.8         3.2          5.9         2.3  virginica
+145          6.7         3.3          5.7         2.5  virginica
+146          6.7         3.0          5.2         2.3  virginica
+147          6.3         2.5          5.0         1.9  virginica
+148          6.5         3.0          5.2         2.0  virginica
+149          6.2         3.4          5.4         2.3  virginica
+150          5.9         3.0          5.1         1.8  virginica
+> sapply(data[1, ], as.numeric)
+Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species 
+         5.1          3.5          1.4          0.2          1.0 
+> head(data, 1)
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+> apply(data, 2, as.numeric)
+       Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  [1,]          5.1         3.5          1.4         0.2      NA
+  [2,]          4.9         3.0          1.4         0.2      NA
+  [3,]          4.7         3.2          1.3         0.2      NA
+  [4,]          4.6         3.1          1.5         0.2      NA
+  [5,]          5.0         3.6          1.4         0.2      NA
+  [6,]          5.4         3.9          1.7         0.4      NA
+  [7,]          4.6         3.4          1.4         0.3      NA
+  [8,]          5.0         3.4          1.5         0.2      NA
+  [9,]          4.4         2.9          1.4         0.2      NA
+ [10,]          4.9         3.1          1.5         0.1      NA
+ [11,]          5.4         3.7          1.5         0.2      NA
+ [12,]          4.8         3.4          1.6         0.2      NA
+ [13,]          4.8         3.0          1.4         0.1      NA
+ [14,]          4.3         3.0          1.1         0.1      NA
+ [15,]          5.8         4.0          1.2         0.2      NA
+ [16,]          5.7         4.4          1.5         0.4      NA
+ [17,]          5.4         3.9          1.3         0.4      NA
+ [18,]          5.1         3.5          1.4         0.3      NA
+ [19,]          5.7         3.8          1.7         0.3      NA
+ [20,]          5.1         3.8          1.5         0.3      NA
+ [21,]          5.4         3.4          1.7         0.2      NA
+ [22,]          5.1         3.7          1.5         0.4      NA
+ [23,]          4.6         3.6          1.0         0.2      NA
+ [24,]          5.1         3.3          1.7         0.5      NA
+ [25,]          4.8         3.4          1.9         0.2      NA
+ [26,]          5.0         3.0          1.6         0.2      NA
+ [27,]          5.0         3.4          1.6         0.4      NA
+ [28,]          5.2         3.5          1.5         0.2      NA
+ [29,]          5.2         3.4          1.4         0.2      NA
+ [30,]          4.7         3.2          1.6         0.2      NA
+ [31,]          4.8         3.1          1.6         0.2      NA
+ [32,]          5.4         3.4          1.5         0.4      NA
+ [33,]          5.2         4.1          1.5         0.1      NA
+ [34,]          5.5         4.2          1.4         0.2      NA
+ [35,]          4.9         3.1          1.5         0.2      NA
+ [36,]          5.0         3.2          1.2         0.2      NA
+ [37,]          5.5         3.5          1.3         0.2      NA
+ [38,]          4.9         3.6          1.4         0.1      NA
+ [39,]          4.4         3.0          1.3         0.2      NA
+ [40,]          5.1         3.4          1.5         0.2      NA
+ [41,]          5.0         3.5          1.3         0.3      NA
+ [42,]          4.5         2.3          1.3         0.3      NA
+ [43,]          4.4         3.2          1.3         0.2      NA
+ [44,]          5.0         3.5          1.6         0.6      NA
+ [45,]          5.1         3.8          1.9         0.4      NA
+ [46,]          4.8         3.0          1.4         0.3      NA
+ [47,]          5.1         3.8          1.6         0.2      NA
+ [48,]          4.6         3.2          1.4         0.2      NA
+ [49,]          5.3         3.7          1.5         0.2      NA
+ [50,]          5.0         3.3          1.4         0.2      NA
+ [51,]          7.0         3.2          4.7         1.4      NA
+ [52,]          6.4         3.2          4.5         1.5      NA
+ [53,]          6.9         3.1          4.9         1.5      NA
+ [54,]          5.5         2.3          4.0         1.3      NA
+ [55,]          6.5         2.8          4.6         1.5      NA
+ [56,]          5.7         2.8          4.5         1.3      NA
+ [57,]          6.3         3.3          4.7         1.6      NA
+ [58,]          4.9         2.4          3.3         1.0      NA
+ [59,]          6.6         2.9          4.6         1.3      NA
+ [60,]          5.2         2.7          3.9         1.4      NA
+ [61,]          5.0         2.0          3.5         1.0      NA
+ [62,]          5.9         3.0          4.2         1.5      NA
+ [63,]          6.0         2.2          4.0         1.0      NA
+ [64,]          6.1         2.9          4.7         1.4      NA
+ [65,]          5.6         2.9          3.6         1.3      NA
+ [66,]          6.7         3.1          4.4         1.4      NA
+ [67,]          5.6         3.0          4.5         1.5      NA
+ [68,]          5.8         2.7          4.1         1.0      NA
+ [69,]          6.2         2.2          4.5         1.5      NA
+ [70,]          5.6         2.5          3.9         1.1      NA
+ [71,]          5.9         3.2          4.8         1.8      NA
+ [72,]          6.1         2.8          4.0         1.3      NA
+ [73,]          6.3         2.5          4.9         1.5      NA
+ [74,]          6.1         2.8          4.7         1.2      NA
+ [75,]          6.4         2.9          4.3         1.3      NA
+ [76,]          6.6         3.0          4.4         1.4      NA
+ [77,]          6.8         2.8          4.8         1.4      NA
+ [78,]          6.7         3.0          5.0         1.7      NA
+ [79,]          6.0         2.9          4.5         1.5      NA
+ [80,]          5.7         2.6          3.5         1.0      NA
+ [81,]          5.5         2.4          3.8         1.1      NA
+ [82,]          5.5         2.4          3.7         1.0      NA
+ [83,]          5.8         2.7          3.9         1.2      NA
+ [84,]          6.0         2.7          5.1         1.6      NA
+ [85,]          5.4         3.0          4.5         1.5      NA
+ [86,]          6.0         3.4          4.5         1.6      NA
+ [87,]          6.7         3.1          4.7         1.5      NA
+ [88,]          6.3         2.3          4.4         1.3      NA
+ [89,]          5.6         3.0          4.1         1.3      NA
+ [90,]          5.5         2.5          4.0         1.3      NA
+ [91,]          5.5         2.6          4.4         1.2      NA
+ [92,]          6.1         3.0          4.6         1.4      NA
+ [93,]          5.8         2.6          4.0         1.2      NA
+ [94,]          5.0         2.3          3.3         1.0      NA
+ [95,]          5.6         2.7          4.2         1.3      NA
+ [96,]          5.7         3.0          4.2         1.2      NA
+ [97,]          5.7         2.9          4.2         1.3      NA
+ [98,]          6.2         2.9          4.3         1.3      NA
+ [99,]          5.1         2.5          3.0         1.1      NA
+[100,]          5.7         2.8          4.1         1.3      NA
+[101,]          6.3         3.3          6.0         2.5      NA
+[102,]          5.8         2.7          5.1         1.9      NA
+[103,]          7.1         3.0          5.9         2.1      NA
+[104,]          6.3         2.9          5.6         1.8      NA
+[105,]          6.5         3.0          5.8         2.2      NA
+[106,]          7.6         3.0          6.6         2.1      NA
+[107,]          4.9         2.5          4.5         1.7      NA
+[108,]          7.3         2.9          6.3         1.8      NA
+[109,]          6.7         2.5          5.8         1.8      NA
+[110,]          7.2         3.6          6.1         2.5      NA
+[111,]          6.5         3.2          5.1         2.0      NA
+[112,]          6.4         2.7          5.3         1.9      NA
+[113,]          6.8         3.0          5.5         2.1      NA
+[114,]          5.7         2.5          5.0         2.0      NA
+[115,]          5.8         2.8          5.1         2.4      NA
+[116,]          6.4         3.2          5.3         2.3      NA
+[117,]          6.5         3.0          5.5         1.8      NA
+[118,]          7.7         3.8          6.7         2.2      NA
+[119,]          7.7         2.6          6.9         2.3      NA
+[120,]          6.0         2.2          5.0         1.5      NA
+[121,]          6.9         3.2          5.7         2.3      NA
+[122,]          5.6         2.8          4.9         2.0      NA
+[123,]          7.7         2.8          6.7         2.0      NA
+[124,]          6.3         2.7          4.9         1.8      NA
+[125,]          6.7         3.3          5.7         2.1      NA
+[126,]          7.2         3.2          6.0         1.8      NA
+[127,]          6.2         2.8          4.8         1.8      NA
+[128,]          6.1         3.0          4.9         1.8      NA
+[129,]          6.4         2.8          5.6         2.1      NA
+[130,]          7.2         3.0          5.8         1.6      NA
+[131,]          7.4         2.8          6.1         1.9      NA
+[132,]          7.9         3.8          6.4         2.0      NA
+[133,]          6.4         2.8          5.6         2.2      NA
+[134,]          6.3         2.8          5.1         1.5      NA
+[135,]          6.1         2.6          5.6         1.4      NA
+[136,]          7.7         3.0          6.1         2.3      NA
+[137,]          6.3         3.4          5.6         2.4      NA
+[138,]          6.4         3.1          5.5         1.8      NA
+[139,]          6.0         3.0          4.8         1.8      NA
+[140,]          6.9         3.1          5.4         2.1      NA
+[141,]          6.7         3.1          5.6         2.4      NA
+[142,]          6.9         3.1          5.1         2.3      NA
+[143,]          5.8         2.7          5.1         1.9      NA
+[144,]          6.8         3.2          5.9         2.3      NA
+[145,]          6.7         3.3          5.7         2.5      NA
+[146,]          6.7         3.0          5.2         2.3      NA
+[147,]          6.3         2.5          5.0         1.9      NA
+[148,]          6.5         3.0          5.2         2.0      NA
+[149,]          6.2         3.4          5.4         2.3      NA
+[150,]          5.9         3.0          5.1         1.8      NA
+Warning message:
+In apply(data, 2, as.numeric) : NAs introduced by coercion
+> apply(data, 2, suppressWarnings(!is.na(as.numeric())))
+Error in match.fun(FUN) : 
+  'suppressWarnings(!is.na(as.numeric()))' is not a function, character or symbol
+> apply(data, 2, function (col) { return(!is.na(as.numeric(col))) })
+Error in as.numeric(row) (from #1) : 
+  cannot coerce type 'closure' to vector of type 'double'
+> vec = c('as', 'asd')
+> vec
+[1] "as"  "asd"
+> as.numeric(vec)
+[1] NA NA
+Warning message:
+NAs introduced by coercion 
+> apply(data, 2, function (col) { return(!is.na(as.numeric(row))) })
+Error in as.numeric(row) (from #1) : 
+  cannot coerce type 'closure' to vector of type 'double'
+> apply(data, 2, function (col) { return(suppressWarnings(!is.na(as.numeric(col)))) })
+       Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  [1,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [2,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [3,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [4,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [5,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [6,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [7,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [8,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [9,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [10,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [11,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [12,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [13,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [14,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [15,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [16,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [17,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [18,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [19,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [20,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [21,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [22,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [23,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [24,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [25,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [26,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [27,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [28,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [29,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [30,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [31,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [32,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [33,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [34,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [35,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [36,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [37,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [38,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [39,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [40,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [41,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [42,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [43,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [44,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [45,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [46,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [47,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [48,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [49,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [50,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [51,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [52,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [53,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [54,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [55,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [56,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [57,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [58,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [59,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [60,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [61,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [62,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [63,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [64,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [65,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [66,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [67,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [68,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [69,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [70,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [71,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [72,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [73,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [74,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [75,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [76,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [77,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [78,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [79,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [80,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [81,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [82,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [83,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [84,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [85,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [86,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [87,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [88,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [89,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [90,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [91,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [92,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [93,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [94,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [95,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [96,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [97,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [98,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [99,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[100,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[101,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[102,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[103,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[104,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[105,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[106,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[107,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[108,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[109,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[110,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[111,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[112,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[113,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[114,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[115,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[116,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[117,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[118,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[119,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[120,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[121,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[122,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[123,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[124,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[125,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[126,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[127,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[128,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[129,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[130,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[131,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[132,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[133,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[134,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[135,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[136,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[137,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[138,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[139,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[140,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[141,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[142,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[143,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[144,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[145,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[146,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[147,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[148,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[149,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[150,]         TRUE        TRUE         TRUE        TRUE   FALSE
+Warning message:
+In FUN(newX[, i], ...) : NAs introduced by coercion
+> apply(data, 2, function (col) { return(suppressWarnings(!is.na(as.numeric(col)))) })
+       Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+  [1,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [2,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [3,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [4,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [5,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [6,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [7,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [8,]         TRUE        TRUE         TRUE        TRUE   FALSE
+  [9,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [10,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [11,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [12,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [13,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [14,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [15,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [16,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [17,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [18,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [19,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [20,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [21,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [22,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [23,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [24,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [25,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [26,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [27,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [28,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [29,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [30,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [31,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [32,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [33,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [34,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [35,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [36,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [37,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [38,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [39,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [40,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [41,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [42,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [43,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [44,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [45,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [46,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [47,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [48,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [49,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [50,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [51,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [52,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [53,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [54,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [55,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [56,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [57,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [58,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [59,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [60,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [61,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [62,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [63,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [64,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [65,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [66,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [67,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [68,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [69,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [70,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [71,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [72,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [73,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [74,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [75,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [76,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [77,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [78,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [79,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [80,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [81,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [82,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [83,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [84,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [85,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [86,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [87,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [88,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [89,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [90,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [91,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [92,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [93,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [94,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [95,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [96,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [97,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [98,]         TRUE        TRUE         TRUE        TRUE   FALSE
+ [99,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[100,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[101,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[102,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[103,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[104,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[105,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[106,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[107,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[108,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[109,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[110,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[111,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[112,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[113,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[114,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[115,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[116,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[117,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[118,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[119,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[120,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[121,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[122,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[123,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[124,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[125,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[126,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[127,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[128,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[129,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[130,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[131,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[132,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[133,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[134,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[135,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[136,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[137,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[138,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[139,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[140,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[141,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[142,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[143,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[144,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[145,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[146,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[147,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[148,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[149,]         TRUE        TRUE         TRUE        TRUE   FALSE
+[150,]         TRUE        TRUE         TRUE        TRUE   FALSE
+> apply(data, 2, function (col) { return(suppressWarnings(is.na(as.numeric(col)))[1]) })
+Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species 
+        TRUE         TRUE         TRUE         TRUE        FALSE 
+> 
