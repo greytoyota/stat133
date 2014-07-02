@@ -20,7 +20,19 @@ load('ex3-tests.rda')
 
 meanByLevel <- function(data) {
 
-    # your code here
+    factor.col = which(apply(data, 2, function(col) {
+        return(suppressWarnings(is.na(as.numeric(col)))[1])
+    }))
+    split.data = split(data, data[, factor.col])
+    idcs = seq(1:length(split.data))
+    level.means = sapply(idcs, function(x) {
+        numeric.data = split.data[[x]][, -factor.col]
+        return(apply(numeric.data, 2, mean))
+    })
+    level.means = t(level.means)
+    data.levels = levels(data[, factor.col])
+    rownames(level.means) = data.levels
+    return(level.means)
 }
 
 tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris)), error=function(err)

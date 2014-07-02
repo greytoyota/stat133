@@ -18,7 +18,6 @@ load('ex1-tests.rda')
 # second the upper bound
 
 outlierCutoff <- function(data) {
-    # your code here
     data.medians = apply(data, 2, median)
     data.IQRs = apply(data, 2, IQR)
     data.lowers = data.medians - 1.5 * data.IQRs
@@ -60,10 +59,15 @@ removeOutliers <- function(data, max.outlier.rate) {
     data.lower.bounds = data.outlier.bounds[1, ]
     data.upper.bounds = data.outlier.bounds[2, ]
 
-    #THIS PART NOT WORKING YET
-    data.outliers = data < data.lower.bounds | data > data.upper.bounds
-    num.outliers = apply(data.outliers, 1, sum)
-    #FIX ABOVE TO MAKE IT WORK
+    checkEachRow <- function(row, idcs) {
+        too.small = sapply(idcs, function(x) { return(row[x] < data.lower.bounds[x]) })
+        too.big = sapply(idcs, function(x) { return(row[x] > data.upper.bounds[x]) })
+        num = sum(too.small) + sum(too.big)
+        return(num)
+    }
+
+    idcs = seq(1:dim(data)[2])
+    num.outliers = apply(data, 1, checkEachRow, idcs=idcs)
     
     max.allowed = max.outlier.rate * ncol(data)
     idcs = num.outliers > max.allowed
