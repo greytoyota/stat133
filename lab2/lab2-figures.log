@@ -1,0 +1,7 @@
+ERROR:root:(2 points) Checking Is the boxplot correctly colored?
+ERROR:root:... Expecting: False
+ERROR:root:... But got:   n
+INFO:root:(2 points) Is the pch parameter set to '.'? is y
+INFO:root:(2 points) Is the histogram normalized? is y
+INFO:root:(2 points) Is there a red horizontal line at y=1? is y
+INFO:root:You got a 6 out of 8.
