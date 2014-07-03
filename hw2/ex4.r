@@ -34,8 +34,32 @@ load('ex4-tests.rda')
 # arr.ind=T) functions helpful (though they are not the only ways to do this)
 
 identifyDuplicates <- function(data) {
-
-    # your code here
+    idcs = seq(1:ncol(data))
+    dupl.idcs = sapply(idcs, function (x) {
+        col = data[, x]
+        compared.data = sapply(idcs, function(i) {
+            return(identical(data[, i], data[, x]))
+        })
+        compared.data[x] = FALSE
+        return(which(compared.data))
+    })
+    if (is.null(dim(dupl.idcs))) {
+        return(numeric(0))
+    }
+    mat = matrix(, nrow=0, ncol=2)
+    for (i in idcs) {
+        for (x in 1:length(dupl.idcs[, i])) {
+            num = dupl.idcs[x, i]
+            if (num > i) {
+                mat = rbind(mat, c(i, num))
+            } else {
+                mat = rbind(mat, c(num, i))
+            }
+        }
+    }
+    mat = unique(mat)
+    mat = mat[order(mat[, 1]), ]
+    return(mat)
 }
     
 tryCatch(checkEquals(numeric(0), identifyDuplicates(ex4.test1)),

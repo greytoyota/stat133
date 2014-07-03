@@ -59,7 +59,18 @@ tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris)), error=function(err)
 #   dimensions of your return value are correct.
 
 stdLevelDiff <- function(data) {
-    # your code here
+    factor.col = which(apply(data, 2, function(col) {
+        return(suppressWarnings(is.na(as.numeric(col)))[1])
+    }))
+    numeric.data = data[, -factor.col]
+    level.means = meanByLevel(data);
+    all.means = apply(numeric.data, 2, mean)
+    all.sd = apply(numeric.data, 2, sd)
+    level.diff = apply(level.means, 1, function(row) {
+        return((row - all.means) / all.sd)
+    })
+    level.diff = t(level.diff)
+    return(level.diff)
 }
 
 tryCatch(checkIdentical(std.level.diff.t, abs(stdLevelDiff(iris))),
