@@ -62,8 +62,15 @@ tryCatch(checkEquals(row.sorter.t, rowSorter(ex2.test2)),
 #   <sort.name>
 
 factorSorter <- function(data, sort.name) {
-
-    # your code here ***
+    sort.col = which(colnames(data) == sort.name)
+    factor.col = which(apply(data, 2, function(col) {
+        return(suppressWarnings(is.na(as.numeric(col)))[1])
+    }))
+    factor.variable = data[, factor.col]
+    sorted.factors = by(data, factor.variable, function(df) {
+        return(df[order(df[, sort.col]), ])
+    })
+    return(sorted.factors)
 }
 
 tryCatch(checkEquals(factor.sorter.t, factorSorter(iris, 'Sepal.Length')),

@@ -16,8 +16,15 @@ load('ex3-tests.rda')
 # numeric giving the total number of NA values in the matrix.
 
 sumNA <- function(data.matrix) {
-
-    # your code here **
+    na.matrix = apply(data.matrix, 2, is.na)
+    num.row = apply(na.matrix, 1, sum)
+    num.col = apply(na.matrix, 2, sum)
+    num.total = sum(num.col)
+    numNAs = list()
+    numNAs[[1]] = num.row
+    numNAs[[2]] = num.col
+    numNAs[[3]] = num.total
+    return(numNAs)
 }
 
 tryCatch(checkEquals(sum.na.t, sumNA(ex3.test1)), error=function(err)
@@ -40,8 +47,15 @@ tryCatch(checkEquals(sum.na.t, sumNA(ex3.test1)), error=function(err)
 # <simulations>: a <n> x <k> matrix of simulated normal variables
 
 simulateNormals <- function(n, sim.mean=0, sim.var=1, k=10) {
-
-    # your code here *
+    rows = 1:n
+    cols = 1:k
+    simulations = sapply(cols, function(col) {
+        col = sapply(rows, function(x) {
+            return(rnorm(1, mean=sim.mean, sd=sqrt(sim.var)))
+        })
+        return(col)
+    })
+    return(simulations)
 }
 
 set.seed(47)
@@ -50,7 +64,7 @@ tryCatch(checkEquals(simulate.normals.t, simulateNormals(100, 5, 4, 5)),
 
 
 # Implement the function "listLengths". Your function should take the
-# follwoing arguments:
+# following arguments:
 #
 # <data.list>: a list whose elements are vectors of varying length
 #
@@ -60,8 +74,8 @@ tryCatch(checkEquals(simulate.normals.t, simulateNormals(100, 5, 4, 5)),
 #   element of <data.list>
 
 listLengths <- function(data.list) {
-
-    # your code here *
+    element.lengths = sapply(data.list, length)
+    return(element.lengths)
 }
 
 tryCatch(checkEquals(list.lengths.t, listLengths(ex3.test2)),
@@ -80,8 +94,10 @@ tryCatch(checkEquals(list.lengths.t, listLengths(ex3.test2)),
 #   matrix should correspond to the row means of the jth list element.
 
 matrixListMeans <- function(matrix.list) {
-
-    # your code here *
+    matrix.row.means = sapply(matrix.list, function(matrix) {
+        return(rowMeans(matrix))
+    })
+    return(matrix.row.means)
 }
 
 tryCatch(checkEquals(matrix.list.means.t, matrixListMeans(ex3.test3)),
@@ -105,8 +121,16 @@ tryCatch(checkEquals(matrix.list.means.t, matrixListMeans(ex3.test3)),
 # column i and j.
 
 standMatrixVariables <- function(data.matrix) {
-
-    # your code here ***
+    cols = 1:ncol(data.matrix)
+    rows = cols
+    standardized.matrix = sapply(cols, function(j) {
+        col = sapply(rows, function(i) {
+            return((mean(data.matrix[, i]) - mean(data.matrix[, j])) /
+                   sd(c(data.matrix[, i], data.matrix[, j])))
+        })
+        return(col)
+    })
+    return(t(standardized.matrix))
 }
 
 tryCatch(checkEquals(stand.matrix.variables.t,
