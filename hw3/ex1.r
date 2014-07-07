@@ -5,7 +5,7 @@ load('ex1-tests.rda')
 # Implement the function "returnFalse". Your function should take the
 # following arguments:
 #
-# <data.vector>: some vector of observations of any typeg
+# <data.vector>: some vector of observations of any type
 # <logical.vector>: a logical vector whose length is equal to
 #   <data.vector>
 #   
@@ -16,8 +16,8 @@ load('ex1-tests.rda')
 #   <logical.vector> is false
 
 returnFalse <- function(data.vector, logical.vector) {
-
-    # your code here *
+    false.observations = data.vector[!logical.vector]
+    return(false.observations)
 }
 
 tryCatch(checkEquals(return.false.t, returnFalse(ex1.test1.data,
@@ -37,8 +37,8 @@ tryCatch(checkEquals(return.false.t, returnFalse(ex1.test1.data,
 #   are not in <idcs>
 
 returnNonIdcs <- function(data.vector, idcs) {
-
-    # your code here *
+    non.idcs.observations = data.vector[-idcs]
+    return(non.idcs.observations)
 }
 
 tryCatch(checkEquals(return.non.idcs.t, returnNonIdcs(ex1.test1.data,
@@ -61,8 +61,8 @@ tryCatch(checkEquals(return.non.idcs.t, returnNonIdcs(ex1.test1.data,
 #   <observation.idcs> and columns from <variable.idcs>
 
 subsetDfIdcs <- function(data, observation.idcs, variable.idcs) {
-
-    # your code here *
+    data.subset = data[observation.idcs, variable.idcs]
+    return(data.subset)
 }
 
 tryCatch(checkEquals(subset.df.idcs.t, subsetDfIdcs(iris, 1:100, 1:3)),
@@ -85,8 +85,16 @@ tryCatch(checkEquals(subset.df.idcs.t, subsetDfIdcs(iris, 1:100, 1:3)),
 #   removed
 
 subsetDfName <- function(data, non.observations, non.names) {
-
-    # your code here **
+    col.names = colnames(data)
+    cols = sapply(col.names, function(name) {
+        if (sum(non.names == name) > 0) {
+            return(FALSE)
+        } else {
+            return(TRUE)
+        }
+    })
+    data.subset = data[-non.observations, cols]
+    return(data.subset)
 }
 
 tryCatch(checkEquals(subset.df.name.t, subsetDfName(iris, 1:50, "Species")),
