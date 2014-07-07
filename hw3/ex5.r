@@ -15,8 +15,9 @@ load('ex5-tests.rda')
 #   five should be the final 5 rows of <data>
 
 firstLast <- function(data) {
-
-    # your code here *
+    num.rows = nrow(data)
+    first.last = data[-(6:(num.rows - 5)), ]
+    return(first.last)
 }
 
 tryCatch(checkEquals(first.last.t, firstLast(iris)), error=function(err)
