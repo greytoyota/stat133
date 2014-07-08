@@ -2,7 +2,39 @@
     "email": "jgraycar@berkeley.edu", 
     "github_name": "greytoyota", 
     "grades": {
-        "assignment-1": {
+        "hw1": {
+            "earned": 30, 
+            "hash": "7e68e712bded8c8d547b0273ae05ebe2570edc9f", 
+            "note": "", 
+            "parts": {
+                "ex1": {
+                    "earned": 6, 
+                    "possible": 6
+                }, 
+                "ex2": {
+                    "earned": 8, 
+                    "possible": 8
+                }, 
+                "ex3": {
+                    "earned": 8, 
+                    "possible": 8
+                }, 
+                "ex4": {
+                    "earned": 8, 
+                    "possible": 8
+                }
+            }, 
+            "penalty": 0, 
+            "possible": 30
+        }, 
+        "lab0": {
+            "earned": 10, 
+            "hash": "1d9794ae4d1bd7d243bc21ff152149c1e0422bd6", 
+            "note": "", 
+            "penalty": 0, 
+            "possible": 10
+        }, 
+        "lab1": {
             "earned": 30, 
             "hash": "91202f2bcd1f3452907c009855552ef70e78d12c", 
             "note": "", 
@@ -10,11 +42,21 @@
             "possible": 30
         }, 
         "lab2": {
-            "earned": 10, 
-            "hash": "1d9794ae4d1bd7d243bc21ff152149c1e0422bd6", 
+            "earned": 28, 
+            "hash": "7e68e712bded8c8d547b0273ae05ebe2570edc9f", 
             "note": "", 
+            "parts": {
+                "lab2": {
+                    "earned": 22, 
+                    "possible": 22
+                }, 
+                "lab2-figures": {
+                    "earned": 6, 
+                    "possible": 8
+                }
+            }, 
             "penalty": 0, 
-            "possible": 10
+            "possible": 30
         }
     }, 
     "login": "greytoyota", 
