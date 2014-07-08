@@ -19,7 +19,14 @@ load('ex4-tests.rda')
 # "age". Give your plot the title "Patient age by group". Set the range of
 # your x-axis to be 20, 100. You will need to read in the data to do this.
 
-# your code here *
+cancer.data = read.csv(file="cancer.csv", header=TRUE)
+control.group = cancer.data[cancer.data$TRT == 0, ]
+treatment.group = cancer.data[cancer.data$TRT == 1, ]
+
+control.age.density = density(control.group$AGE)
+treatment.age.density = density(treatment.group$AGE)
+plot(control.age.density, xlab="age", xlim=c(20, 100), main="Patient age by group")
+lines(treatment.age.density, col="red")
 
 # Produce four plots in the same window comparing the control and treatment
 # group oral conditions at each period (initial, 2wk, 4wk, 6wk). These
@@ -30,8 +37,24 @@ load('ex4-tests.rda')
 # control group black and the treatment group red.
 # NOTE: These plots wil look super wierd, don't worry about that.
 
-# your code here ***
+control.initial.density = density(control.group$TOTALCIN)
+control.2wk.density = density(control.group$TOTALCW2)
+control.4wk.density = density(control.group$TOTALCW4)
+control.6wk.density = density(control.group$TOTALCW6)
+treatment.initial.density = density(treatment.group$TOTALCIN)
+treatment.2wk.density = density(treatment.group$TOTALCW2)
+treatment.4wk.density = density(treatment.group$TOTALCW4)
+treatment.6wk.density = density(treatment.group$TOTALCW6)
 
+par(mfrow=c(2, 2))
+plot(control.initial.density, main="initial", ylab="condition", xlim=c(1, 20), ylim=c(0, 0.6))
+lines(treatment.initial.density, col="red")
+plot(control.2wk.density, main="2wk", ylab="condition", xlim=c(1, 20), ylim=c(0, 0.6))
+lines(treatment.2wk.density, col="red")
+plot(control.4wk.density, main="4wk", ylab="condition", xlim=c(1, 20), ylim=c(0, 0.6))
+lines(treatment.4wk.density, col="red")
+plot(control.6wk.density, main="6wk", ylab="condition", xlim=c(1, 20), ylim=c(0, 0.6))
+lines(treatment.6wk.density, col="red")
 
 # Load in the "babies.csv" dataset for this problem. Implement the function
 # "testGroupsGestation" that takes the following arguments:
@@ -57,7 +80,10 @@ testGroupsGestation <- function(data, group1.idcs, group2.idcs,
 
     stopifnot(!any(group1.idcs %in% group2.idcs))
 
-    # your code here **
+    group1 = data[group1.idcs, ]
+    group2 = data[group2.idcs, ]
+    t.test.output = t.test(group1$gestation, group2$gestation, alternative=test.alternative)
+    return(t.test.output)
 }
 
 tryCatch(checkEquals(test.groups.gestation.t,
@@ -65,12 +91,19 @@ tryCatch(checkEquals(test.groups.gestation.t,
                                          test.alternative='greater')),
          error=function(err) errMsg(err))
 
+tryCatch(checkEquals(test.groups.gestation.t$p.value,
+                     testGroupsGestation(test.data, g1, g2,
+                                         test.alternative='greater')$p.value),                                                                                        
+         error=function(err) errMsg(err))
+
 # Use your function to perform a one-sided t-test comparing the gestation
 # period for babies of smoking mothers and non-smoking mothers. Store this
 # variable as <smoking.test>
 
 # your code here *
-#smoke.idcs <- your code here
-#non.smoke.idcs <- your code here
-#smoking.test <- your code here
+babies.data = read.csv('babies.csv', header=TRUE)
+smoke.idcs <- which(babies.data$smoke == 1)
+non.smoke.idcs <- which(babies.data$smoke == 0)
+smoking.test <- testGroupsGestation(babies.data, smoke.idcs, non.smoke.idcs,
+                                    test.alternative='less')
 

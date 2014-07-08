@@ -35,8 +35,8 @@ tryCatch(checkEquals(first.last.t, firstLast(iris)), error=function(err)
 # observations (rows)
 
 npRatio <- function(data) {
-
-    # your code here *
+    np.ratio = ncol(data) / nrow(data)
+    return(np.ratio)
 }
 
 tryCatch(checkEquals(np.ratio.t, npRatio(iris)), error=function(err)
@@ -54,8 +54,12 @@ tryCatch(checkEquals(np.ratio.t, npRatio(iris)), error=function(err)
 #   Mean, 3rd Quartile, and Max values for any numeric variable in <data>
 
 numericSummary <- function(data) {
-
-    # your code here **
+    factor.cols = which(apply(data, 2, function(col) {
+        return(suppressWarnings(is.na(as.numeric(col)))[1])
+    }))
+    numeric.data = data[, -factor.cols]
+    numeric.summary = apply(numeric.data, 2, summary)
+    return(numeric.summary)
 }
 
 tryCatch(checkEquals(numeric.summary.t, unname(numericSummary(ex5.test1))),
@@ -72,8 +76,11 @@ tryCatch(checkEquals(numeric.summary.t, unname(numericSummary(ex5.test1))),
 #   (column) of the data frame
 
 getClass <- function(data) {
-
-    # your code here *
+    idcs = 1:ncol(data)
+    var.classes = sapply(idcs, function(i) {
+        return(class(data[, i]))
+    })
+    return(var.classes)
 }
 
 tryCatch(checkEquals(get.class.t, unname(getClass(ex5.test1))), error=function(err)
