@@ -73,5 +73,5 @@ factorSorter <- function(data, sort.name) {
     return(sorted.factors)
 }
 
-tryCatch(checkEquals(factor.sorter.t, factorSorter(iris, 'Sepal.Length')),
+tryCatch(checkEquals(unname(unlist(factor.sorter.t)), unname(unlist(factorSorter(iris, 'Sepal.Length')))),
          error=function(err) errMsg(err))
