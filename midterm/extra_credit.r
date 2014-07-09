@@ -23,10 +23,7 @@ errMsg <- function(err) print(err)
 # numbers 1 to 6.
 
 flip.sum = function(n=10) {
-    idcs = 1:n
-    rolls = sapply(idcs, function(i) {
-        return(sample(6, 1))
-    })
+    rolls = replicate(n, sample(6, 1))
     return(sum(rolls))
 }
 
@@ -44,8 +41,5 @@ tryCatch(checkEquals(sums, c(flip.sum(5), flip.sum(5), flip.sum(5))),
 # 10,000 times. Plot the histogram of random.sums. Make sure
 # to plot the density (not the counts) and set the breaks to 50. 
 
-random.sums = 1:10000
-random.sums = sapply(random.sums, function(x) {
-    return(flip.sum())
-})
+random.sums = replicate(10000, flip.sum())
 hist(random.sums, freq=FALSE, breaks=50)
