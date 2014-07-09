@@ -10,12 +10,12 @@ load("family.rda")
 # A person's body mass index (BMI) should be calculated as their
 # weight divided by their squared heights multiplied by 703
 
-# fbmi = # your code here
+fbmi = (fweight / (fheight ^ 2)) * 703
 
 # (1 point) Create a logical vector foverWt
 # A person should be considered overweight if their BMI is greater than 25
 
-# foverWt = # your code here
+foverWt = fbmi > 25
 
 # (1 point) Create a dataframe family
 # The dataframe should contain fnames, fgender, fage, fheight, fweight, fbmi,
@@ -24,7 +24,8 @@ load("family.rda")
 # > names(family)
 # [1] "name" "gender" "age" "height" "weight" "bmi" "overWt"
 
-# family = # your code here
+family = data.frame(fnames, fgender, fage, fheight, fweight, fbmi, foverWt)
+colnames(family) <- c("name", "gender", "age", "height", "weight", "bmi", "overWt")
 
 # (5 points) Plot age vs bmi
 
@@ -38,3 +39,8 @@ load("family.rda")
 # function
 
 # your code here
+status = factor(fgender)
+cols = c("red", "blue")
+plot(fage, fbmi, type="p", xlim=c(23, 80), ylim=c(16, 31), pch='o', col=cols[status],
+     xlab="age", ylab="bmi")
+legend(x="topright", legend=c("male", "female"), pch="o", col=cols)
