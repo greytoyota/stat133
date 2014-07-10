@@ -17,7 +17,7 @@ p.8g <- sum(g.sims > 7) / n
 # Suppose we were interested in 15 minute intervals. How unlikely was the
 # stretch from 15'-30' when Germany scored 4 goals? Disregarding extra
 # time, we'll break the game into 6 intervals.
-rate <- average.goals / 6
+rate <- average.goals / 6 # because 6 15-minute intervals in a game
 p.sims <- rpois(n, rate)
 p.4g <- sum(p.sims > 3) / n
 

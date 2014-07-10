@@ -28,10 +28,8 @@ errMsg <- function(err) print(err)
 
 
 poisProc <- function(rate, t) {
-
-    # your code here
-
-
+    n.events = rpois(1, rate * t)
+    return(n.events)
 }
 
 set.seed(47)
@@ -52,9 +50,10 @@ tryCatch(checkEquals(10, poisProc(0.5, 10)), error=function(err)
 #   <time.intervals>
 
 poisSim <- function(rate, time.intervals=1) {
-
-    # your code here
-
+    n.arrivals = sapply(time.intervals, function(time) {
+        return(rpois(1, time * rate))
+    })
+    return(n.arrivals)
 }
 
 set.seed(47)
@@ -70,8 +69,8 @@ tryCatch(checkEquals(c(2, 0, 1, 2, 1), poisSim(0.25, 1:5)),
 
 set.seed(47)
 
-# times <- your code here
-# simulations <- your code here
+times <- c(.5, 1, 1.5, 2)
+simulations <- replicate(10000, poisSim(10, times))
 
 
 # In a single plotting window, create the following: one histogram of the
@@ -85,4 +84,11 @@ set.seed(47)
 # to the time interval of the histogram
 # HINT: it may be easiest to turn your simulations matrix into a list (w/
 # one entry per row) and use mapply
+
+par(mfrow=c(2, 2))
+sim.max = max(simulations)
+apply(simulations, 1, function(row) {
+    hist(row, freq=F, xlab="arrivals", xlim=c(0, sim.max), main=NULL)
+    lines(dpois(0:sim.max, 10), col='red')
+})
 
