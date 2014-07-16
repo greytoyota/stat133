@@ -1,3 +1,4 @@
+ling.data = read.table('lingData.txt', head=TRUE)
 # create a subset of the data in lingData.txt where all observations that
 # omitted every question have been removed. Store the **number** of
 # observations that you omitted as the variable <n.no.response>
@@ -17,3 +18,7 @@
 # save the subset of remaining observations in a file named
 # "ling-data-clean.data" 
 
+## My Notes:
+## Get number of possible responses by calling max on the column
+## Get number of non-responded by calling sum(apply(data, 1, '>', 0)
+## If == 0, can omit
