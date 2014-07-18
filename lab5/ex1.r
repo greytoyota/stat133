@@ -101,9 +101,12 @@ tryCatch(checkEquals(eval.clusters.t, evalClusters(iris, iris$Species, k=3)),
 # at <h>.
 
 heightCluster <- function(data, norm='euclidean', h, ...) {
-    
-    # your code here
-
+    dissim.matrix = dataDist(data, norm)
+    cluster = hclust(dissim.matrix)
+    tree = cutree(cluster, h=h)
+    plot(cluster)
+    abline(h=h, col="red")
+    return(tree)
 }
 
 tryCatch(checkEquals(height.cluster.t, heightCluster(iris, h=4, cex=0.2)),
