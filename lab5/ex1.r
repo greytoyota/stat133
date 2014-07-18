@@ -17,12 +17,11 @@ load('ex1-tests.rda')
 # function.
 
 dataDist <- function(data, norm='euclidean') {
-
-    # your code here
-
+    numeric.cols = apply(data, 2, function(col) { return(!is.na(as.numeric(col[1]))) })
+    return(dist(data[numeric.cols], method=norm))
 }
 
-tryCatch(checkEquals(data.dist.t, dataDist(iris)), error=function(err)
+tryCatch(checkEquals(c(data.dist.t), c(dataDist(iris))), error=function(err)
          errMsg(err))
 
 
@@ -43,9 +42,8 @@ tryCatch(checkEquals(data.dist.t, dataDist(iris)), error=function(err)
 # HINT: you may find the cutree function useful
 
 clustLabel <- function(data, norm='euclidean', k) {
-
-    # your code here
-
+    dissim.matrix = dataDist(data, norm)
+    return(cutree(hclust(dissim.matrix), k))
 }
 
 tryCatch(checkEquals(clust.label.t, clustLabel(iris, k=3)),
@@ -73,9 +71,12 @@ tryCatch(checkEquals(clust.label.t, clustLabel(iris, k=3)),
 # name of the factor that occurs most frequently in vector
 
 evalClusters <- function(data, true.labels, norm='euclidean', k) {
-
-    # your code here
-
+    groups = clustLabel(data, norm=norm, k=k)
+    proportion = by(true.labels, groups, function(cluster) {
+        max.groups = names(which.max(table(cluster)))
+        sum(cluster == max.groups) / length(cluster)
+    })
+    return(as.vector(proportion))
 }
 
 tryCatch(checkEquals(eval.clusters.t, evalClusters(iris, iris$Species, k=3)),
