@@ -22,7 +22,7 @@ dim(d$all)
 set.seed(42)
 smpl = sample.int(nrow(d$all), 2*n)
 
-# training set is the firs n
+# training set is the first n
 d$train = d$all[smpl[1:n], ]
 d$train.mat = as.matrix(d$train)
 d$train.x = as.matrix(d$train)[, -1]
