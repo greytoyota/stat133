@@ -138,6 +138,23 @@
             }, 
             "penalty": 0, 
             "possible": 30
+        }, 
+        "lab4": {
+            "earned": 28, 
+            "hash": "f52f5fa123e9f5911dfdcf329e9d3d4257a96f0c", 
+            "note": "", 
+            "parts": {
+                "ex1": {
+                    "earned": 20, 
+                    "possible": 20
+                }, 
+                "ex1_fig": {
+                    "earned": 8, 
+                    "possible": 10
+                }
+            }, 
+            "penalty": 0, 
+            "possible": 30
         }
     }, 
     "login": "greytoyota", 
