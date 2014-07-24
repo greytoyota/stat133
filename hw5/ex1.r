@@ -102,16 +102,16 @@ tryCatch(checkEquals(reduce.data.t, reduceData(iris.data, 0.9)),
 #   resulting cluster labels as the variable <cluster.labels.h>
 
 wine.data = read.csv("wines.csv", header=TRUE)
-wine.reduced <- reduceData(wine.data, 1)
+wine.reduced <- reduceData(wine.data[2:length(wine.data)], 1)
 
 set.seed(47)
 wine.kmeans = kmeans(wine.reduced, centers=3, iter.max=10)
 cluster.labels.k <- wine.kmeans$cluster
 
-wine.dist = dist(wine.reduced)
-wine.clust = hclust(wine.dist)
-wine.tree = cutree(wine.clust, 3)
-plot(wine.tree)
+wine.dist = dist(wine.reduced, method="euclidean")
+wine.cluster = hclust(wine.dist)
+plot(wine.cluster)
+wine.tree = cutree(wine.cluster, h=3)
 cluster.labels.h <- wine.tree
 
 
@@ -139,9 +139,16 @@ cluster.labels.h <- wine.tree
 
 
 plotClusters <- function(data, variables, cluster.labels, ...) {
-    
-    # your code here
-
+    library(RColorBrewer)
+    if (nrow(data) != length(cluster.labels)) {
+        stop("incompatible dimensions")
+    } else if (length(variables) > 2) {
+        stop("len variables > 2")
+    }
+    num.clusters = levels(factor(cluster.labels))
+    cols = brewer.pal(num.clusters, "Set1")
+    plot.vars = data[variables]
+    plot(plot.vars, col=cols[cluster.labels], ...)
 }
 
 
