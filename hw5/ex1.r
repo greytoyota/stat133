@@ -169,3 +169,15 @@ tryCatch(checkException(plotClusters(iris.data, 1:3, 1:nrow(iris.data)),
 # the true labels (from col 1 of wines.csv) respectively. Change the titles
 # of each of these rows accordingly but keep the pch as 20.
 
+par(mfrow=c(3, 3))
+plotClusters(wine.reduced, c(1, 2), cluster.labels.k, main="k-means", pch=20)
+plotClusters(wine.reduced, c(2, 3), cluster.labels.k, main="k-means", pch=20)
+plotClusters(wine.reduced, c(1, 3), cluster.labels.k, main="k-means", pch=20)
+
+plotClusters(wine.reduced, c(1, 2), cluster.labels.h, main="h-clusters", pch=20)
+plotClusters(wine.reduced, c(2, 3), cluster.labels.h, main="h-clusters", pch=20)
+plotClusters(wine.reduced, c(1, 3), cluster.labels.h, main="h-clusters", pch=20)
+
+plotClusters(wine.reduced, c(1, 2), wine.data[, 1], main="true labels", pch=20)
+plotClusters(wine.reduced, c(2, 3), wine.data[, 1], main="true labels", pch=20)
+plotClusters(wine.reduced, c(1, 3), wine.data[, 1], main="true labels", pch=20)
