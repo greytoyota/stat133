@@ -147,7 +147,7 @@ plotClusters <- function(data, variables, cluster.labels, ...) {
     }
     num.clusters = levels(factor(cluster.labels))
     cols = brewer.pal(num.clusters, "Set1")
-    plot.vars = data[variables]
+    plot.vars = data[, variables]
     plot(plot.vars, col=cols[cluster.labels], ...)
 }
 
