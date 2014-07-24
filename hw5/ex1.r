@@ -111,7 +111,7 @@ cluster.labels.k <- wine.kmeans$cluster
 wine.dist = dist(wine.reduced, method="euclidean")
 wine.cluster = hclust(wine.dist)
 plot(wine.cluster)
-wine.tree = cutree(wine.cluster, h=3)
+wine.tree = cutree(wine.cluster, k=3)
 cluster.labels.h <- wine.tree
 
 
