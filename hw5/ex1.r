@@ -14,10 +14,9 @@ load('ex1-tests.rda')
 # components in <pca> whose associated variance exceeds <var.level>
 
 sigComponents <- function(pca, var.level) {
-
-    # your code here
-
-    
+    stdevs = pca[[1]]
+    vars = stdevs ** 2
+    return(sum(vars > var.level))
 }
 
 tryCatch(checkEquals(2, sigComponents(iris.pca, 0.9)), error=function(err)
@@ -35,9 +34,12 @@ tryCatch(checkEquals(2, sigComponents(iris.pca, 0.9)), error=function(err)
 # pc1, the second the proportion explained by pc1 and pc2 combined, etc.)
 
 varProportion <- function(pca) {
-
-    # your code here
-
+    vars = pca[[1]] ** 2
+    total.var = sum(vars)
+    cumulative.prop = sapply(seq(1:length(vars)), function(i) {
+        return(sum(vars[1:i]) / total.var)
+    })
+    return(cumulative.prop)
 }
 
 tryCatch(checkEquals(var.proportion.t, varProportion(iris.pca)),
@@ -64,9 +66,12 @@ tryCatch(checkEquals(var.proportion.t, varProportion(iris.pca)),
 # should return integer(0)***
 
 reduceData <- function(data, var.level, scale=T, center=T) {
-
-    # your code here
-
+    pca = prcomp(data, center=center, scale=scale)
+    num.exceed = sigComponents(pca, var.level)
+    if (num.exceed == 0) {
+        return(integer(0))
+    }
+    return(pca$x[, 1:num.exceed])
 }
 
 
@@ -77,7 +82,7 @@ tryCatch(checkEquals(reduce.data.t, reduceData(iris.data, 0.9)),
          error=function(err) errMsg(err))
 
 # In this folder you will find the file "wines.csv". The data contains
-# measurements of the concentrations of 13 different chemicals in wines
+# measurements of the concentrations of 13 different chemicals in
 # various wines produced by 3 different types of grapes. The first column
 # of this dataset indicated the type of grape used to produce each wine,
 # while the remaining columns give the chemical concentrations.
@@ -96,13 +101,18 @@ tryCatch(checkEquals(reduce.data.t, reduceData(iris.data, 0.9)),
 #   dendrogram. Cut the tree so that you have 3 clusters and store the
 #   resulting cluster labels as the variable <cluster.labels.h>
 
+wine.data = read.csv("wines.csv", header=TRUE)
+wine.reduced <- reduceData(wine.data, 1)
 
-# wine.reduced <- your code here
+set.seed(47)
+wine.kmeans = kmeans(wine.reduced, centers=3, iter.max=10)
+cluster.labels.k <- wine.kmeans$cluster
 
-# cluster.labels.k <- your code here, set seed to 47 before running the
-# algorithm
-
-# cluster.labels.h <- your code here
+wine.dist = dist(wine.reduced)
+wine.clust = hclust(wine.dist)
+wine.tree = cutree(wine.clust, 3)
+plot(wine.tree)
+cluster.labels.h <- wine.tree
 
 
 
