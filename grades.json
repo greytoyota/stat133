@@ -172,6 +172,23 @@
             }, 
             "penalty": 0, 
             "possible": 30
+        }, 
+        "lab5": {
+            "earned": 28, 
+            "hash": "edd0e4411f72164599e7ac6752c8fba9e9778536", 
+            "note": "", 
+            "parts": {
+                "ex1": {
+                    "earned": 24, 
+                    "possible": 24
+                }, 
+                "ex1_fig": {
+                    "earned": 4, 
+                    "possible": 6
+                }
+            }, 
+            "penalty": 0, 
+            "possible": 30
         }
     }, 
     "login": "greytoyota", 
