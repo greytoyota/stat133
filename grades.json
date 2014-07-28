@@ -189,6 +189,35 @@
             }, 
             "penalty": 0, 
             "possible": 30
+        }, 
+        "midterm": {
+            "earned": 30, 
+            "hash": "42b47909ab9c54859ba74a3210153e7329dc8782", 
+            "note": "", 
+            "parts": {
+                "ex1": {
+                    "earned": 4, 
+                    "possible": 4
+                }, 
+                "ex1_fig": {
+                    "earned": 5, 
+                    "possible": 5
+                }, 
+                "ex2": {
+                    "earned": 18, 
+                    "possible": 18
+                }, 
+                "extra_credit": {
+                    "earned": 2, 
+                    "possible": 2
+                }, 
+                "extra_credit_fig": {
+                    "earned": 1, 
+                    "possible": 1
+                }
+            }, 
+            "penalty": 0, 
+            "possible": 30
         }
     }, 
     "login": "greytoyota", 
