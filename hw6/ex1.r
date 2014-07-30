@@ -35,8 +35,11 @@ load('hw6-tests.rda')
 # observations.
 
 tpr <- function(threshold, predicted, truth) {
-
-    # your code here
+    total.true = sum(truth)
+    true.predicted = predicted[truth == 1]
+    correctly.predicted = sum(true.predicted > threshold)
+    tpr = correctly.predicted / total.true
+    return(tpr)
 }
 
 tryCatch(checkEquals(hw6$tpr.t1, tpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
@@ -59,8 +62,11 @@ tryCatch(checkEquals(hw6$tpr.t1, tpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
 # from class 1 divided by the total number of false observations.
 
 fpr <- function(threshold, predicted, truth) {
-
-    # your code here
+    total.false = sum(truth == 0)
+    false.predicted = predicted[truth == 0]
+    falsely.predicted = sum(false.predicted > threshold)
+    fpr = falsely.predicted / total.false
+    return(fpr)
 }
 
 tryCatch(checkEquals(hw6$fpr.t1, fpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
@@ -90,8 +96,19 @@ tryCatch(checkEquals(hw6$fpr.t1, fpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
 # fprs = the false positive rates over your threshold grid
 
 plotROC <- function(predicted, truth, add=F, ...) {
-
-    # your code here
+    lst = list()
+    tprs = sapply(seq(0, 1, by=.01), function(x) { tpr(x, predicted, truth) } )
+    fprs = sapply(seq(0, 1, by=.01), function(x) { fpr(x, predicted, truth) } )
+    if (add) {
+        lines(fprs, tprs)
+    } else {
+        plot(fprs, tprs, xlab="fpr", ylab="tpr", xlim=c(0, 1),
+             ylim=c(0, 1), type='l', main="ROC curve")
+        abline(0, 1, lty=2)
+    }
+    lst$tprs = tprs
+    lst$fprs = fprs
+    return(lst)
 }
 
 tryCatch(checkEquals(hw6$plotROC.t1, plotROC(hw6$tpr.pr, hw6$tpr.tr)),
