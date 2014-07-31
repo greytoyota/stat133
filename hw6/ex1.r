@@ -35,8 +35,11 @@ load('hw6-tests.rda')
 # observations.
 
 tpr <- function(threshold, predicted, truth) {
-
-    # your code here
+    total.true = sum(truth)
+    true.predicted = predicted[truth == 1]
+    correctly.predicted = sum(true.predicted > threshold)
+    tpr = correctly.predicted / total.true
+    return(tpr)
 }
 
 tryCatch(checkEquals(hw6$tpr.t1, tpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
@@ -59,8 +62,11 @@ tryCatch(checkEquals(hw6$tpr.t1, tpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
 # from class 1 divided by the total number of false observations.
 
 fpr <- function(threshold, predicted, truth) {
-
-    # your code here
+    total.false = sum(truth == 0)
+    false.predicted = predicted[truth == 0]
+    falsely.predicted = sum(false.predicted > threshold)
+    fpr = falsely.predicted / total.false
+    return(fpr)
 }
 
 tryCatch(checkEquals(hw6$fpr.t1, fpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
@@ -90,8 +96,19 @@ tryCatch(checkEquals(hw6$fpr.t1, fpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
 # fprs = the false positive rates over your threshold grid
 
 plotROC <- function(predicted, truth, add=F, ...) {
-
-    # your code here
+    tprs = sapply(seq(0, 1, by=.01), function(x) { tpr(x, predicted, truth) } )
+    fprs = sapply(seq(0, 1, by=.01), function(x) { fpr(x, predicted, truth) } )
+    if (add) {
+        lines(fprs, tprs, ...)
+    } else {
+        plot(fprs, tprs, xlab="fpr", ylab="tpr", xlim=c(0, 1),
+             ylim=c(0, 1), type='l', main="ROC curve", ...)
+        abline(0, 1, lty=2)
+    }
+    lst = list()
+    lst$tprs = tprs
+    lst$fprs = fprs
+    return(lst)
 }
 
 tryCatch(checkEquals(hw6$plotROC.t1, plotROC(hw6$tpr.pr, hw6$tpr.tr)),
@@ -110,7 +127,9 @@ library(rpart)
 library(randomForest)
 spam <- list()
 spam$data <- read.csv('spam-data.csv', header=F)
-
+data.factor = as.factor(spam$data$V58)
+spam$data$V58 = data.factor
+colnames(spam$data)[colnames(spam$data) == "V58"] = "spam"
 
 # Before running a classifier, please split your data into training and test
 # sets. To do this, randomly sample 3,500 observtions from your dataset using
@@ -118,6 +137,11 @@ spam$data <- read.csv('spam-data.csv', header=F)
 # "spam". Store the remaining observations as the element "test" in the list
 # "spam".
 # ***Make sure to set your seed to 47 before sampling***
+
+set.seed(47)
+train.rows = sample(nrow(spam$data), 3500)
+spam$train = spam$data[train.rows, ]
+spam$test = spam$data[-train.rows, ]
 
 
 # fit a recursive partitioning classifier and a random forest classifier to your
@@ -128,7 +152,10 @@ spam$data <- read.csv('spam-data.csv', header=F)
 # argument of randomForest to 250, but do not change any of the other model
 # parameters.  *** Make sure to set your seed to 47 before fitting your
 # models***
-
+set.seed(47)
+pred.rp = rpart(y~., method="class", data=data.frame(y=spam$train$spam, spam$train))
+set.seed(47)
+pred.rf = randomForest(y ~ ., data=data.frame(y=spam$train$spam, spam$train[1, 1:57]), ntree=250)
 
 # Evaluate your two models using your plotROC function. Store the outputs as
 # <rp.output> and <rf.output> respectively. Please plot the ROC curves in the
@@ -136,6 +163,9 @@ spam$data <- read.csv('spam-data.csv', header=F)
 # convert your spam variable back to a 0-1 valued vector depending on how you
 # wrote your plotROC function.
 # Add a legend in the bottom right indicating the the model that each curve represents.
+
+rp.output = plotROC(pred.rp, spam$train$spam, add=FALSE, col="blue")
+rf.output = plotROC(pred.rf, spam$train$spam, add=TRUE, col="red")
 
 # In the spam scenario, a true positive represents classifying spam email correctly
 # while a false positive represents classifying a good email as spam. For each
