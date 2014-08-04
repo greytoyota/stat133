@@ -223,5 +223,6 @@
     "login": "greytoyota", 
     "name": "Joel Graycar", 
     "status": "enrolled", 
-    "url": "git@github.com:greytoyota/stat133.git"
+    "url": "git@github.com:greytoyota/stat133.git", 
+    "type": "students"
 }
