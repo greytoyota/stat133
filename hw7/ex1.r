@@ -114,7 +114,12 @@ plot.bands <- function() {
     abline(intercept, fs.coef[2], col="red")
     abline(intercept, fheight.slope.confidence.interval[1], col="green")
     abline(intercept, fheight.slope.confidence.interval[2], col="green")
-    
+    fs.pred <- predict.lm(fs.lm, interval="prediction")
+    fs.pred.upper <- fs.pred[, 2]
+    fs.pred.lower <- fs.pred[, 3]
+    x <- father.son$fheight
+    lines(x, y=fs.pred.upper, col="blue")
+    lines(x, y=fs.pred.lower, col="blue")
 }
 
 plot.bands()
@@ -134,10 +139,16 @@ plot.bands()
 ## value).
 
 r.squared <- function(y, y.fitted) {
-    YOUR.CODE.HERE
+    y.mean = mean(y)
+    ss.tot = sum((y - y.mean) ** 2)
+    ss.res = sum((y - y.fitted) ** 2)
+    ss.prop = ss.res / ss.tot
+    return(1 - ss.prop)
 }
 
 ## What is the r.squared of our linear model on the father-son data?
 ## Save this in a variable named "fs.rsquared"
 
-(fs.rsquared <- YOUR.CODE.HERE)
+y <- father.son$sheight
+y.fitted <- predict.lm(fs.lm)
+fs.rsquared <- r.squared(y, y.fitted)
