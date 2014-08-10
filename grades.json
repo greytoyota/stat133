@@ -252,6 +252,19 @@
                     "earned": 10
                 }
             }
+        }, 
+        "lab7": {
+            "note": "", 
+            "hash": "a75acfb3a53e13034c68ddf64aa6fd5c6199f7b5", 
+            "earned": 30, 
+            "possible": 30, 
+            "penalty": 0, 
+            "parts": {
+                "ex1": {
+                    "possible": 30, 
+                    "earned": 30
+                }
+            }
         }
     }, 
     "login": "greytoyota", 
