@@ -1,0 +1,110 @@
+INFO:root:Executed R('load(\'../../instructor/assignments/lab8/lab8-tests2.rda\')')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('normalmixture.t1 <- normalMixture(10, 10, 0, 1, 0, 1)')
+INFO:root:Executed R('normalmixture.t2 <- normalMixture(5, 5, 0, 2, 0, 2)')
+INFO:root:(2 points) R('20 == length(normalmixture.t1)')[0] is True
+INFO:root:(2 points) R('grade.l8$normalmixture.t1 == normalmixture.t1')[0] is True
+ERROR:root:(2 points) Checking R('grade.l8$normalmixture.t2 == normalmixture.t2')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   False
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('loggenerator.t1 <- logGenerator(grade.l8$normalmixture.t1, 5, 10)')
+INFO:root:Executed R('n.lg <- sum(loggenerator.t1 <=1 &loggenerator.t1 >= 0)')
+INFO:root:(2 points) R('20 == n.lg')[0] is True
+INFO:root:(2 points) R('20 == length(loggenerator.t1)')[0] is True
+INFO:root:(2 points) R('grade.l8$loggenerator.t1 == loggenerator.t1')[0] is True
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('tobinom.t1 <- toBinom(grade.l8$loggenerator.t1)')
+INFO:root:Executed R('n.tb <- sum(tobinom.t1 <=1 & tobinom.t1 >= 0)')
+INFO:root:(2 points) R('20 == n.tb')[0] is True
+INFO:root:(2 points) R('20 == length(tobinom.t1)')[0] is True
+INFO:root:(2 points) R('grade.l8$tobinom.t1 == tobinom.t1')[0] is True
+INFO:root:Executed R('mae.t1 <- mae(1:10, 3:12)')
+INFO:root:(2 points) R('2 == mae.t1')[0] is True
+INFO:root:(2 points) R('grade.l8$x.vals == x.vals')[0] is True
+INFO:root:(2 points) R('grade.l8$p.vals == p.vals')[0] is True
+INFO:root:(2 points) R('grade.l8$preds.lm == preds.lm')[0] is True
+ERROR:root:(2 points) Checking R('grade.l8$preds.log == preds.log')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Traceback error
+ERROR:root:Got exception:
+Traceback (most recent call last):
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/gradebook/score.py", line 180, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/__init__.py", line 248, in __call__
+    res = self.eval(p)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 166, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 99, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in eval(expr, envir, enclos) : object 'preds.log' not found
+
+ERROR:root:Traceback (most recent call last):
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/gradebook/score.py", line 180, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/__init__.py", line 248, in __call__
+    res = self.eval(p)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 166, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 99, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in eval(expr, envir, enclos) : object 'preds.log' not found
+
+Traceback (most recent call last):
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/gradebook/score.py", line 180, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/__init__.py", line 248, in __call__
+    res = self.eval(p)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 166, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 99, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in eval(expr, envir, enclos) : object 'preds.log' not found
+
+ERROR:root:(1 points) Checking R('all.equal(grade.l8$mae.lm, mae.lm, tolerance=1e-4)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Traceback error
+ERROR:root:Got exception:
+Traceback (most recent call last):
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/gradebook/score.py", line 180, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/__init__.py", line 248, in __call__
+    res = self.eval(p)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 166, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 99, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in mode(current) : object 'mae.lm' not found
+
+ERROR:root:Traceback (most recent call last):
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/gradebook/score.py", line 180, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/__init__.py", line 248, in __call__
+    res = self.eval(p)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 166, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 99, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in mode(current) : object 'mae.lm' not found
+
+Traceback (most recent call last):
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/gradebook/score.py", line 180, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/__init__.py", line 248, in __call__
+    res = self.eval(p)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 166, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/Users/Karl/anaconda/lib/python2.7/site-packages/rpy2/robjects/functions.py", line 99, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in mode(current) : object 'mae.lm' not found
+
+ERROR:root:(1 points) Checking R('all.equal(grade.l8$mae.log, mae.log, tolerance=1e-4)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Mean relative difference: 15.65233
+INFO:root:You got a 24 out of 30.
