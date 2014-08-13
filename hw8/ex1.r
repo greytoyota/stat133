@@ -43,7 +43,7 @@ set.seed(42)
 # and standard deviation.
 
 heights = function(n, ave, sd) {
-    # your code here
+    return(rnorm(n, ave, sd))
 }
 
 # (0 points) The weights function is already implemented
@@ -61,8 +61,8 @@ weights = heights
 # from the uniform distribution between the oldest and youngest
 # person.
 
-ages = function(n, min, sd) {
-    # your code here
+ages = function(n, min, max) {
+    return(runif(n, min, max))
 }
 
 # (1 point) Implement the convert.heights function
@@ -75,7 +75,7 @@ ages = function(n, min, sd) {
 # by multiplying by 0.393701.
 
 convert.heights = function(heights) {
-    # your code here
+    return(heights * .393701)
 }
 
 # (1 point) Implement the convert.weights function
@@ -88,7 +88,7 @@ convert.heights = function(heights) {
 # by multiplying by 2.20462.
 
 convert.weights = function(weights)  {
-    # your code here
+    return(weights * 2.20462)
 }
 
 # (2 points) Implement the compute.bmi function
@@ -106,7 +106,8 @@ convert.weights = function(weights)  {
 # weight in kg divided by their squared heights in m
 
 compute.bmi = function(heights, weights)  {
-    # your code here
+    heights.m = heights / 100
+    return(weights / (heights.m ** 2))
 }
 
 # Now you are going to create some datastructures using these functions
@@ -123,16 +124,22 @@ compute.bmi = function(heights, weights)  {
 #   height is the result of calling heights
 #   weight is the result of calling weights
 #   age is the result of calling ages
+height = heights(female$n, female$ave.height, all$height.sd)
+weight = weights(female$n, female$ave.weight, all$weight.sd)
+age = ages(female$n, all$young, all$old)
 
 female$df.base = data.frame(
-    # your code here
+    height, weight, age
 )
 
 # (1 point) Create a dataframe male$df.base
 # same as above but for males
+height = heights(male$n, male$ave.height, all$height.sd)
+weight = weights(male$n, male$ave.weight, all$weight.sd)
+age = ages(male$n, all$young, all$old)
 
 male$df.base = data.frame(
-    # your code here
+    height, weight, age
 )
 
 # (1 point) Create a dataframe female$df
@@ -148,16 +155,28 @@ male$df.base = data.frame(
 #   heights_in_in, weights_in_lbs, and bmi result from
 #    calling the corresponding functions you made above
 #    on the relevant parts of female$df.base
+height = female$df.base$height
+weight = female$df.base$weight
+age = female$df.base$age
+heights_in_in = convert.heights(female$df.base$height)
+weights_in_lbs = convert.weights(female$df.base$weight)
+bmi = compute.bmi(height, weight)
 
 female$df = data.frame(
-    # your code here
+    height, weight, age, heights_in_in, weights_in_lbs, bmi
 )
 
 # (1 point) Create a dataframe male$df
 # same as above but for males
+height = male$df.base$height
+weight = male$df.base$weight
+age = male$df.base$age
+heights_in_in = convert.heights(male$df.base$height)
+weights_in_lbs = convert.weights(male$df.base$weight)
+bmi = compute.bmi(height, weight)
 
 male$df = data.frame(
-    # your code here
+    height, weight, age, heights_in_in, weights_in_lbs, bmi
 )
 
 # (1 point) Create a dataframe all$df
@@ -169,21 +188,27 @@ male$df = data.frame(
 # > names(all$df)
 # [1] "heights"        "weights"        "age"            "heights_in_in" 
 # [5] "weights_in_lbs" "bmi"            "gender"
+gender = rep("f", nrow(female$df))
+females = cbind(female$df, gender)
+gender = rep("m", nrow(male$df))
+males = cbind(male$df, gender)
 
-# all$df = # your code here
+all$df = rbind(females, males)
+all$df$gender = as.factor(all$df$gender)
 
 # (2 points) Plot a scatterplot matrix from the first three columns of all$df
 # Make sure that females are colored red and males are colored blue
 #
 # You many want to read more here:
 #  http://www.stat.berkeley.edu/classes/s133/R-4a.html
-
-# your code here
+cols=c("red", "blue")
+plot(all$df[, 1:3], col=cols[all$df$gender])
 
 # (2 points) Plot a scatterplot matrix from the first six columns of all$df
 # Again make sure that females are colored red and males are colored blue
 
-# your code here
+cols=c("red", "blue")
+plot(all$df[, 1:6], col=cols[all$df$gender])
 
 # (1 point) Create a prcomp object from all$df called pca
 # You will need to remove non-numeric columns first
