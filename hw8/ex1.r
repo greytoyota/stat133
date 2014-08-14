@@ -213,7 +213,8 @@ plot(all$df[, 1:6], col=cols[all$df$gender])
 # (1 point) Create a prcomp object from all$df called pca
 # You will need to remove non-numeric columns first
 
-# pca = # your code here
+numeric.df = all$df[, sapply(all$df, is.numeric)]
+pca = prcomp(numeric.df)
 
 
 # (4 points) Plot data projected on its principal components
@@ -226,33 +227,49 @@ plot(all$df[, 1:6], col=cols[all$df$gender])
 #
 # Again make sure that females are colored red and males are colored blue
 
-# your code here
+getCol <- function(PC.num) {
+    return(which(abs(pca$rotation[, PC.num]) == max(abs(pca$rotation[, PC.num]))))
+}
+PC.1 = getCol(1)
+PC.2 = getCol(2)
+PC.3 = getCol(3)
+PC.4 = getCol(4)
+
+cols = c("red", "blue")
+par(mfrow=c(2, 2))
+plot(all$df[, c(PC.1, PC.2)], col=cols[all$df$gender])
+plot(all$df[, c(PC.2, PC.3)], col=cols[all$df$gender])
+plot(all$df[, c(PC.1, PC.3)], col=cols[all$df$gender])
+plot(all$df[, c(PC.3, PC.4)], col=cols[all$df$gender])
+
 
 # (1 point) Create a kmeans object using all$df
 # set k to 2 and make sure that you use 10 different initial conditions
 
-# full.km # your code here
+full.km = kmeans(numeric.df, centers=2, nstart=10)
 
 # (1 point) Create a hclust object using all$df
 
-# full.hclust = # your code here
+distances = dist(numeric.df)
+full.hclust = hclust(distances)
 
 # (1 point) Find the labels using cutree with k=2
 
-# full.hclust.labels = # your code here
+full.hclust.labels = cutree(full.hclust, k=2)
  
 # (1 point) Create a kmeans object using just the first two columns of all$df
 # set k to 2 and make sure that you use 10 different initial conditions
 
-# red.km = # your code here
+red.km = kmeans(numeric.df[, 1:2], centers=2, nstart=10)
 
 # (1 point) Create a hclust object using just the first two columns of all$df
 
-# red.hclust = # your code here
+distances = dist(numeric.df[, 1:2])
+red.hclust = hclust(distances)
 
 # (1 point) Find the labels using cutree with k=2
 
-# red.hclust.labels = # your code here
+red.hclust.labels = cutree(red.hclust, k=2)
 
 
 # (4 point) Plot the data projected on its first two dimensions
@@ -269,4 +286,9 @@ plot(all$df[, 1:6], col=cols[all$df$gender])
 # you shouldn't try to make sure the colors are necessarily coded
 # to female and male.
 
-# your code here
+cols=c("red", "blue")
+par(mfrow=c(2, 2))
+plot(all$df[, 1:2], col=cols[full.km$cluster], main="kmeans (full)")
+plot(all$df[, 1:2], col=cols[full.hclust.labels], main="hclust (full)")
+plot(all$df[, 1:2], col=cols[red.km$cluster], main="kmeans (reduced)")
+plot(all$df[, 1:2], col=cols[red.hclust.labels], main="hclust (reduced)")
