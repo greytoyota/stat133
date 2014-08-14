@@ -227,20 +227,16 @@ pca = prcomp(numeric.df)
 #
 # Again make sure that females are colored red and males are colored blue
 
-getCol <- function(PC.num) {
-    return(which(abs(pca$rotation[, PC.num]) == max(abs(pca$rotation[, PC.num]))))
-}
-PC.1 = getCol(1)
-PC.2 = getCol(2)
-PC.3 = getCol(3)
-PC.4 = getCol(4)
-
 cols = c("red", "blue")
 par(mfrow=c(2, 2))
-plot(all$df[, c(PC.1, PC.2)], col=cols[all$df$gender])
-plot(all$df[, c(PC.2, PC.3)], col=cols[all$df$gender])
-plot(all$df[, c(PC.1, PC.3)], col=cols[all$df$gender])
-plot(all$df[, c(PC.3, PC.4)], col=cols[all$df$gender])
+plot(x=pca$x[, 1], y=pca$x[, 2], col=cols[all$df$gender],
+     xlab="PC1", ylab="PC2")
+plot(x=pca$x[, 2], y=pca$x[, 3], col=cols[all$df$gender],
+     xlab="PC2", ylab="PC3")
+plot(x=pca$x[, 1], y=pca$x[, 3], col=cols[all$df$gender],
+     xlab="PC1", ylab="PC3")
+plot(x=pca$x[, 3], y=pca$x[, 4], col=cols[all$df$gender],
+     xlab="PC3", ylab="PC4")
 
 
 # (1 point) Create a kmeans object using all$df
