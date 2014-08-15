@@ -75,7 +75,16 @@ tryCatch(checkEquals(0, length(too.many.na(testdf1, 0.6, 1))),
 #    IQR is the difference Q3 - Q1
 
 outlier.cutoff = function(x, rm.na){
-    # your code here
+    if (rm.na) {
+        x = x[complete.cases(x)]
+    }
+    quantiles = quantile(x, c(.25, .75))
+    q1 = quantiles[1]
+    q3 = quantiles[3]
+    iqr = q3 - q1
+    lower.cutoff = q1 - 2.5*iqr
+    upper.cutoff = q3 + 2.5 * iqr
+    return(unname(c(lower.cutoff, upper.cutoff)))
 }
 
 set.seed(42)
