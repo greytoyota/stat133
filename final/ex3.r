@@ -35,7 +35,14 @@ load("ex3.rda")
 # of NA values is strictly greater than the 'threshold'.
 
 too.many.na = function(df, threshold, axis) {
-    # your code here
+    too.many.na = apply(df, axis, function(x) {
+        num.na = sum(is.na(x))
+        if ((num.na / length(x)) > threshold) {
+            return(TRUE)
+        }
+        return(FALSE)
+    })
+    return(unname(which(too.many.na)))
 }
 
 testdf1 = data.frame(1:4, c(NA,1,2,3))
