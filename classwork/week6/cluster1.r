@@ -25,7 +25,7 @@ group.pca = prcomp(group)
 # a data matrix with 2 columns and plots the first column
 # against the second.  You should assume that the columns are
 # from the PCA (you may wish to review gene-eda4.r). Color
-# the "healthy" subjects red and the "sick" subjects blue. 
+# the "healthy" subjects red and the "sick" subjects blue.
 # Your helper function should also label the plot
 # "Simulated  MVG (n= 200, p=30)" and put a legend in the
 # top right corner.
@@ -39,9 +39,9 @@ plotPCA <- function(data) {
 # 3. Produce four figures in one window by calling your
 # helper function on the:
 #   a. 1st vs 2nd PC
-#   b. 2nd vs 3rd PC 
-#   b. 1st vs 3rd PC 
-#   b. 3rd vs 4th PC 
+#   b. 2nd vs 3rd PC
+#   b. 1st vs 3rd PC
+#   b. 3rd vs 4th PC
 par(mfrow=c(2, 2))
 plotPCA(group.pca$x[, 1:2])
 plotPCA(group.pca$x[, 2:3])

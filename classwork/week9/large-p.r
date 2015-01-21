@@ -2,7 +2,7 @@ library(car)
 library(MASS)
 library(glmnet)
 
-# plot variables against one another to check for linear relationship 
+# plot variables against one another to check for linear relationship
 makelines = function(x,y) {
     points(x,y,pch=20)
     abline(lsfit(x,y),col="blue")

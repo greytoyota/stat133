@@ -3,7 +3,7 @@ library(RUnit)
 
 load("digits.rda")
 
-# use knn to predict 
+# use knn to predict
 prediction.knn = knn(d$train.x, d$test.x, d$train.y, k=10)
 
 # how well did it do?

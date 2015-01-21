@@ -7,4 +7,6 @@
 # R data files from past sessions
 .Rdata
 
+*.swp
+
 Rplots.pdf

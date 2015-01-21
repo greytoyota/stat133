@@ -1,7 +1,7 @@
 # (1 point) Create a vector of length 1000, the first 500 values are 1 and the
 # last 500 are 2.  Call this vector a.
 
-a = c(rep(1,500), rep(2,500)) 
+a = c(rep(1,500), rep(2,500))
 
 # (1 point) Create a vector with values that start at -122.2 with each
 # consecutive element decreasing by 1 until the last number -1.2. In other
